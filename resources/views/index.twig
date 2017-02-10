@@ -18,14 +18,14 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/assets/app.css">
     <!-- Polyfill(s) for older browsers -->
-    <script src="assets/node_modules/core-js/client/shim.min.js"></script>
+    <script src="/assets/node_modules/core-js/client/shim.min.js"></script>
 
-    <script src="assets/node_modules/zone.js/dist/zone.js"></script>
-    <script src="assets/node_modules/systemjs/dist/system.src.js"></script>
+    <script src="/assets/node_modules/zone.js/dist/zone.js"></script>
+    <script src="/assets/node_modules/systemjs/dist/system.src.js"></script>
 
-    <script src="assets/systemjs.config.js"></script>
+    <script src="/assets/systemjs.config.js"></script>
     <script>
-      System.import('assets/app/main.js').catch(function(err){ console.error(err); });
+      System.import('/assets/app/main.js').catch(function(err){ console.error(err); });
     </script>
   </head>
 

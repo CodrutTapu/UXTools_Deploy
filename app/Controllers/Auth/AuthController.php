@@ -39,7 +39,7 @@
             ];
 
             //return $response->withJson($auth);
-            return $response->withRedirect($this->router->pathFor('dashboard'));
+            return $response->withRedirect($this->router->pathFor('home'));
         }
 
         public function getSignUp($request,$response)
