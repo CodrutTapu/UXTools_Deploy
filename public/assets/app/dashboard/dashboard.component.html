@@ -95,7 +95,7 @@
                                         </div>
                                     </td>
                                     <td *ngIf="project.archived == 1" >{{ project.project_name }}</td>
-                                    <td *ngIf="project.archived == 1" >Tapu Codrut</td>
+                                    <td *ngIf="project.archived == 1" >{{ user.full_name }}</td>
                                     <td *ngIf="project.archived == 1" >{{ project.date_created}}</td>
                                     <td *ngIf="project.archived == 1" >{{ project.date_modified }}</td>
                                 </tr>

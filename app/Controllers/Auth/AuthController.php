@@ -38,7 +38,6 @@
                 "email" => $request->getParam('email')
             ];
 
-            //return $response->withJson($auth);
             return $response->withRedirect($this->router->pathFor('home'));
         }
 

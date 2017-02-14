@@ -44,7 +44,6 @@ import { bgColorModule } from './bgColor_component/bgColor.module';
 
 const appRoutes: Routes = [
     { path: '', component: DashboardComponent },
-    //{ path: 'dashboard', component: DashboardComponent },
     { path: 'new/persona', component: newPersonaComponent },
     { path: 'view/:author_id/:project_type/:project_id/:project_name', component: ViewPersonaComponent },
     { path: 'edit/:author_id/:project_type/:project_id/:project_name', component: PersonaComponent },

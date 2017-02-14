@@ -1222,13 +1222,13 @@
 
             $project_name = $request->getParam('project_name');
 
-            $date_created  = date("Y-m-d");
+            $date_created = date("Y-m-d");
 
             $date_modified  = date("Y-m-d");
 
             $content = $request->getParam('persona_content');
 
-            $database->insert("projects", [
+            $insertedId = $database->insert("projects", [
                 "author_id" => $author_id,
                 "project_type" => "persona",
                 "project_name" => $project_name,
@@ -1238,7 +1238,10 @@
                 "archived" => 0
             ]);
 
+            return $response->withJson($insertedId);
+
         }
+
         public function getProject ($request, $response) {
 
             $database = new medoo([
@@ -1268,7 +1271,6 @@
             ]
             ]);
 
-            //echo json_encode($project);
             return $response->withJson($project);
         }
         
@@ -1295,7 +1297,7 @@
 
             $project_name = $request->getParam('project_name');
 
-            $date_modified  = date("Y-m-d");
+            $date_modified = date("Y-m-d");
 
             $content = $request->getParam('persona_content');
 

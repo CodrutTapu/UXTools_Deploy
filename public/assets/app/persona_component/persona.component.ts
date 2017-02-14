@@ -65,4 +65,5 @@ export class PersonaComponent {
         $.post(ajaxurl, data, function (response:any) {});
         toastr["success"](" ", "Persona Saved!");
     }
+
 }

@@ -26,6 +26,7 @@ export class newPersonaComponent {
                                     new gridElem(4,3,[new textModule(1,'text-module','<h1>Text Field 3</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra felis in sem porta feugiat.</p>','#F8F8F8')],'#4c7ba0')];
 
     user:any;
+    first_save_flag:boolean = true;
     id:number = 3;
 
     constructor(private UserService: UserService) {}
@@ -49,10 +50,19 @@ export class newPersonaComponent {
     }
 
     savePersona() {
-        var ajaxurl = '/projects/saveNewPersona',
-        data =  {'author_id': this.user.id, 'project_name': this.project_name, 'persona_content': JSON.stringify(this.gridElements)};
-        $.post(ajaxurl, data, function (response:any) {});
-        toastr["success"](" ", "Persona Saved!");
+        if(this.first_save_flag) {
+            var ajaxurl = '/projects/saveNewPersona',
+            data =  {'author_id': this.user.id, 'project_name': this.project_name, 'persona_content': JSON.stringify(this.gridElements)};
+            $.post(ajaxurl, data, function (response:any) {
+                localStorage.setItem('insertId', response);
+            });
+            toastr["success"](" ", "Persona Created!");
+            this.first_save_flag = false;
+        } else {
+            var ajaxurl = '/projects/savePersona',
+            data2 =  {'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'persona_content': JSON.stringify(this.gridElements)};
+            $.post(ajaxurl, data2, function (response:any) {});
+            toastr["success"](" ", "Persona Saved!");
+        }
     }
-
 }

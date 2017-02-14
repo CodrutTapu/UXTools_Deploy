@@ -17,6 +17,7 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "../text_mo
             this.gridElements = [new gridElem_1.gridElem(4, 1, [new textModule_1.textModule(1, 'text-module', '<h1>Text Field 1</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra felis in sem porta feugiat.</p>', '#F8F8F8')], '#4c7ba0'),
                 new gridElem_1.gridElem(4, 2, [new textModule_1.textModule(1, 'text-module', '<h1>Text Field 2</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra felis in sem porta feugiat.</p>', '#F8F8F8')], '#4c7ba0'),
                 new gridElem_1.gridElem(4, 3, [new textModule_1.textModule(1, 'text-module', '<h1>Text Field 3</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra felis in sem porta feugiat.</p>', '#F8F8F8')], '#4c7ba0')];
+            this.first_save_flag = true;
             this.id = 3;
         }
         newPersonaComponent.prototype.ngOnInit = function () {
@@ -32,9 +33,19 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "../text_mo
             this.id = this.id + 1;
         };
         newPersonaComponent.prototype.savePersona = function () {
-            var ajaxurl = '/projects/saveNewPersona', data = { 'author_id': this.user.id, 'project_name': this.project_name, 'persona_content': JSON.stringify(this.gridElements) };
-            $.post(ajaxurl, data, function (response) { });
-            toastr["success"](" ", "Persona Saved!");
+            if (this.first_save_flag) {
+                var ajaxurl = '/projects/saveNewPersona', data = { 'author_id': this.user.id, 'project_name': this.project_name, 'persona_content': JSON.stringify(this.gridElements) };
+                $.post(ajaxurl, data, function (response) {
+                    localStorage.setItem('insertId', response);
+                });
+                toastr["success"](" ", "Persona Created!");
+                this.first_save_flag = false;
+            }
+            else {
+                var ajaxurl = '/projects/savePersona', data2 = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'persona_content': JSON.stringify(this.gridElements) };
+                $.post(ajaxurl, data2, function (response) { });
+                toastr["success"](" ", "Persona Saved!");
+            }
         };
         return newPersonaComponent;
     }());

@@ -8,7 +8,6 @@ define(["require", "exports", "@angular/platform-browser", "@angular/core", "@an
     "use strict";
     var appRoutes = [
         { path: '', component: dashboard_component_1.DashboardComponent },
-        //{ path: 'dashboard', component: DashboardComponent },
         { path: 'new/persona', component: newPersona_component_1.newPersonaComponent },
         { path: 'view/:author_id/:project_type/:project_id/:project_name', component: view_persona_component_1.ViewPersonaComponent },
         { path: 'edit/:author_id/:project_type/:project_id/:project_name', component: persona_component_1.PersonaComponent },
