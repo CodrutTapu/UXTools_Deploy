@@ -8,6 +8,8 @@ import { persona } from '../models/persona';
 import { textModule } from '../text_module/textModule';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 declare var $:any;
 declare var toastr:any;
 
@@ -27,6 +29,7 @@ export class PersonaComponent {
     project_type:string;
     project_id:number;
     project_name:string;
+    subscription:any;
 
     constructor(private UserService: UserService, route: ActivatedRoute) {
         this.author_id = route.snapshot.params['author_id'];
@@ -37,6 +40,13 @@ export class PersonaComponent {
 
     ngOnInit() {
         this.httpGet();
+        this.subscription = Observable.interval(30000).subscribe(x => {
+             this.savePersonaCall();
+          });
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
     addGridElement(dim:number) {
@@ -59,10 +69,14 @@ export class PersonaComponent {
             );
     }
 
-    savePersona() {
+    savePersonaCall() {
         var ajaxurl = '/projects/savePersona',
         data =  {'author_id': this.author_id, 'project_name': this.project_name, 'project_id': this.project_id, 'persona_content': JSON.stringify(this.gridElements)};
         $.post(ajaxurl, data, function (response:any) {});
+    }
+
+    savePersona() {
+        this.savePersonaCall();
         toastr["success"](" ", "Persona Saved!");
     }
 

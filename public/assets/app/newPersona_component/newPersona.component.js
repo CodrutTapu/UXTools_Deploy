@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", "@angular/core", "../models/gridElem", "../text_module/textModule", "../user.service"], function (require, exports, core_1, gridElem_1, textModule_1, user_service_1) {
+define(["require", "exports", "@angular/core", "../models/gridElem", "../text_module/textModule", "../user.service", "rxjs/Rx", "rxjs/add/operator/map"], function (require, exports, core_1, gridElem_1, textModule_1, user_service_1, Rx_1) {
     "use strict";
     var newPersonaComponent = (function () {
         function newPersonaComponent(UserService) {
@@ -21,7 +21,20 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "../text_mo
             this.id = 3;
         }
         newPersonaComponent.prototype.ngOnInit = function () {
+            var _this = this;
             this.getUser();
+            this.subscription = Rx_1.Observable.interval(30000).subscribe(function (x) {
+                if (_this.first_save_flag) {
+                    _this.saveNewPersonaCall();
+                    _this.first_save_flag = false;
+                }
+                else {
+                    _this.savePersonaCall();
+                }
+            });
+        };
+        newPersonaComponent.prototype.ngOnDestroy = function () {
+            this.subscription.unsubscribe();
         };
         newPersonaComponent.prototype.getUser = function () {
             var _this = this;
@@ -32,18 +45,24 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "../text_mo
             this.gridElements.push(new gridElem_1.gridElem(dim, this.id + 1, [], '#4c7ba0'));
             this.id = this.id + 1;
         };
+        newPersonaComponent.prototype.saveNewPersonaCall = function () {
+            var ajaxurl = '/projects/saveNewPersona', data = { 'author_id': this.user.id, 'project_name': this.project_name, 'persona_content': JSON.stringify(this.gridElements) };
+            $.post(ajaxurl, data, function (response) {
+                localStorage.setItem('insertId', response);
+            });
+        };
+        newPersonaComponent.prototype.savePersonaCall = function () {
+            var ajaxurl = '/projects/savePersona', data2 = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'persona_content': JSON.stringify(this.gridElements) };
+            $.post(ajaxurl, data2, function (response) { });
+        };
         newPersonaComponent.prototype.savePersona = function () {
             if (this.first_save_flag) {
-                var ajaxurl = '/projects/saveNewPersona', data = { 'author_id': this.user.id, 'project_name': this.project_name, 'persona_content': JSON.stringify(this.gridElements) };
-                $.post(ajaxurl, data, function (response) {
-                    localStorage.setItem('insertId', response);
-                });
+                this.saveNewPersonaCall();
                 toastr["success"](" ", "Persona Created!");
                 this.first_save_flag = false;
             }
             else {
-                var ajaxurl = '/projects/savePersona', data2 = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'persona_content': JSON.stringify(this.gridElements) };
-                $.post(ajaxurl, data2, function (response) { });
+                this.savePersonaCall();
                 toastr["success"](" ", "Persona Saved!");
             }
         };

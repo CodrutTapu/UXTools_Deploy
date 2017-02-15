@@ -52,6 +52,11 @@ export class TabsModule {
 
     deleteTabsItem(module:any,item:any) {
         module.items.splice(module.items.indexOf(item), 1);
+        var t_t = $('.tab-title').first();
+        var t_p = $('.tab-pane').first();
+        t_t.addClass( "active" );
+        t_p.addClass( "active" );
+        t_p.addClass( "in" );
     }
 
     updateTabsItemContent(item:any,module:any) {

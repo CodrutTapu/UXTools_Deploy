@@ -44,6 +44,11 @@ define(["require", "exports", "@angular/core", "./tabsItem", "../cloneModule_ser
         };
         TabsModule.prototype.deleteTabsItem = function (module, item) {
             module.items.splice(module.items.indexOf(item), 1);
+            var t_t = $('.tab-title').first();
+            var t_p = $('.tab-pane').first();
+            t_t.addClass("active");
+            t_p.addClass("active");
+            t_p.addClass("in");
         };
         TabsModule.prototype.updateTabsItemContent = function (item, module) {
             $(document).off('click', '.editable-tabs-item-content').on('click', '.editable-tabs-item-content', function () {

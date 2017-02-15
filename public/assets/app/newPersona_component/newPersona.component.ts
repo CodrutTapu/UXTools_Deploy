@@ -8,6 +8,8 @@ import { persona } from '../models/persona';
 import { textModule } from '../text_module/textModule';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 declare var $:any;
 declare var toastr:any;
 
@@ -28,11 +30,24 @@ export class newPersonaComponent {
     user:any;
     first_save_flag:boolean = true;
     id:number = 3;
+    subscription:any;
 
     constructor(private UserService: UserService) {}
 
     ngOnInit() {
         this.getUser();
+        this.subscription = Observable.interval(30000).subscribe(x => {
+            if(this.first_save_flag) {
+                this.saveNewPersonaCall();
+                this.first_save_flag = false;
+            } else {
+                this.savePersonaCall();
+            }
+          });
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
     getUser() {
@@ -49,19 +64,27 @@ export class newPersonaComponent {
         this.id = this.id+1;
     }
 
+    saveNewPersonaCall() {
+        var ajaxurl = '/projects/saveNewPersona',
+        data =  {'author_id': this.user.id, 'project_name': this.project_name, 'persona_content': JSON.stringify(this.gridElements)};
+        $.post(ajaxurl, data, function (response:any) {
+            localStorage.setItem('insertId', response);
+        });
+    }
+
+    savePersonaCall() {
+        var ajaxurl = '/projects/savePersona',
+        data2 =  {'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'persona_content': JSON.stringify(this.gridElements)};
+        $.post(ajaxurl, data2, function (response:any) {});
+    }
+
     savePersona() {
         if(this.first_save_flag) {
-            var ajaxurl = '/projects/saveNewPersona',
-            data =  {'author_id': this.user.id, 'project_name': this.project_name, 'persona_content': JSON.stringify(this.gridElements)};
-            $.post(ajaxurl, data, function (response:any) {
-                localStorage.setItem('insertId', response);
-            });
+            this.saveNewPersonaCall();
             toastr["success"](" ", "Persona Created!");
             this.first_save_flag = false;
         } else {
-            var ajaxurl = '/projects/savePersona',
-            data2 =  {'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'persona_content': JSON.stringify(this.gridElements)};
-            $.post(ajaxurl, data2, function (response:any) {});
+            this.savePersonaCall();
             toastr["success"](" ", "Persona Saved!");
         }
     }

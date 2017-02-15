@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/router", "../user.service"], function (require, exports, core_1, gridElem_1, router_1, user_service_1) {
+define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/router", "../user.service", "rxjs/Rx", "rxjs/add/operator/map"], function (require, exports, core_1, gridElem_1, router_1, user_service_1, Rx_1) {
     "use strict";
     var PersonaComponent = (function () {
         function PersonaComponent(UserService, route) {
@@ -20,7 +20,14 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/r
             this.project_name = route.snapshot.params['project_name'];
         }
         PersonaComponent.prototype.ngOnInit = function () {
+            var _this = this;
             this.httpGet();
+            this.subscription = Rx_1.Observable.interval(30000).subscribe(function (x) {
+                _this.savePersonaCall();
+            });
+        };
+        PersonaComponent.prototype.ngOnDestroy = function () {
+            this.subscription.unsubscribe();
         };
         PersonaComponent.prototype.addGridElement = function (dim) {
             var i;
@@ -37,9 +44,12 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/r
             this.UserService.getProject(this.author_id, this.project_id)
                 .subscribe(function (data) { return _this.getData = data; }, function (error) { return alert(Error); }, function () { return _this.gridElements = JSON.parse(_this.getData[0].content); });
         };
-        PersonaComponent.prototype.savePersona = function () {
+        PersonaComponent.prototype.savePersonaCall = function () {
             var ajaxurl = '/projects/savePersona', data = { 'author_id': this.author_id, 'project_name': this.project_name, 'project_id': this.project_id, 'persona_content': JSON.stringify(this.gridElements) };
             $.post(ajaxurl, data, function (response) { });
+        };
+        PersonaComponent.prototype.savePersona = function () {
+            this.savePersonaCall();
             toastr["success"](" ", "Persona Saved!");
         };
         return PersonaComponent;
