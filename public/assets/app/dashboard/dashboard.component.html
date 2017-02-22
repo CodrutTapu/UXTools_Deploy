@@ -8,9 +8,20 @@
                             <div class="col col-xs-6">
                                 <h3 class="panel-title"><strong>Projects</strong></h3>
                             </div>
-                            <div class="col col-xs-6 text-right">
-                                <button type="button" class="btn btn-sm btn-warning view-archived-btn" (click)="changeViewArchivedProjects()"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Archived Projects</button>
-                                <button type="button" class="btn btn-sm btn-primary" routerLink="/new/persona"><i class="fa fa-plus-square" aria-hidden="true"></i> New Persona</button>
+                            <div class="col col-xs-6">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="dropdown mr-20">
+                                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-plus-square" aria-hidden="true"></i> New
+                                        <span class="caret"></span></button>
+                                        <ul class="dropdown-menu dropdown-menu-left">
+                                            <li><a routerLink="new/blank_state">Create Blank State</a></li>
+                                            <li class="divider"></li>
+                                            <li><a routerLink="new/persona">Use Persona Template</a></li>
+                                            <li><a routerLink="new/swot_analysis">Use SWOT Analysis Template</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="mr-20"><button type="button" class="btn btn-sm btn-warning view-archived-btn" (click)="changeViewArchivedProjects()"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Archived Projects</button></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -28,9 +39,9 @@
                             <tbody *ngIf="viewArchivedProjects == false">
                                 <tr *ngFor="let project of projects" >
                                     <td *ngIf="project.archived == 0" >
-                                        <a class="btn btn-sm btn-success" routerLink="/view/{{ project.author_id }}/{{ project.project_type }}/{{ project.project_id }}/{{ project.project_name }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                        <a class="btn btn-sm btn-success" routerLink="/view/{{ project.author_id }}/{{ project.project_id }}/{{ project.project_name }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                         <a class="btn btn-sm btn-warning" (click)="archiveProject(project.author_id, project.project_id, project.archived)"><i class="fa fa-archive" aria-hidden="true"></i></a>
-                                        <a class="btn btn-sm btn-default" routerLink="/edit/{{ project.author_id }}/{{ project.project_type }}/{{ project.project_id }}/{{ project.project_name }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        <a class="btn btn-sm btn-default" routerLink="/edit/{{ project.author_id }}/{{ project.project_id }}/{{ project.project_name }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                         <a class="btn btn-sm btn-danger" data-toggle="modal" [attr.data-target]="'#confirmDelete' + project.project_id"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                         <div class="modal fade" id="confirmDelete{{project.project_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                             <div class="modal-dialog" role="document">

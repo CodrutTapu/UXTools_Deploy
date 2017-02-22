@@ -154,6 +154,9 @@ body {
 .hover-brd:hover {
     border: 2px solid #001926;
 }
+.mr-20 {
+    margin-right: 20px;
+}
 /*
 ==================================
     Module Buttons

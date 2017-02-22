@@ -28,13 +28,15 @@
 
         $this->post('/projects/deleteProject', 'ProjectsController:deleteProject');
         $this->post('/projects/archiveProject', 'ProjectsController:archiveProject');
-        $this->post('/projects/saveNewPersona', 'ProjectsController:saveNewPersona');
-        $this->post('/projects/savePersona', 'ProjectsController:savePersona');
+        $this->post('/projects/saveNewProject', 'ProjectsController:saveNewProject');
+        $this->post('/projects/saveProject', 'ProjectsController:saveProject');
 
         $this->get('/new/persona','HomeController:home');
+        $this->get('/new/swot_analysis','HomeController:home');
+        $this->get('/new/blank_state','HomeController:home');
         $this->get('/projects/getProject/{author_id}/{project_id}', 'ProjectsController:getProject');
-        $this->get('/edit/{author_id}/{project_type}/{project_id}/{project_name}','HomeController:home');
-        $this->get('/view/{author_id}/{project_type}/{project_id}/{project_name}','ShareController:shareProject');
+        $this->get('/edit/{author_id}/{project_id}/{project_name}','HomeController:home');
+        $this->get('/view/{author_id}/{project_id}/{project_name}','ShareController:shareProject');
 
     })->add(new AuthMiddleware($container));
 

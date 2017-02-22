@@ -1200,7 +1200,7 @@
             }
         }
 
-        public function saveNewPersona($request, $response) {
+        public function saveNewProject($request, $response) {
 
             $database = new medoo([
 
@@ -1226,11 +1226,11 @@
 
             $date_modified  = date("Y-m-d");
 
-            $content = $request->getParam('persona_content');
+            $content = $request->getParam('project_content');
 
             $insertedId = $database->insert("projects", [
                 "author_id" => $author_id,
-                "project_type" => "persona",
+                "project_type" => "project",
                 "project_name" => $project_name,
                 "date_created" => $date_created,
                 "date_modified" => $date_modified,
@@ -1274,7 +1274,7 @@
             return $response->withJson($project);
         }
         
-        public function savePersona($request, $response) {
+        public function saveProject($request, $response) {
             $database = new medoo([
 
                'database_type' => 'mysql',
@@ -1299,7 +1299,7 @@
 
             $date_modified = date("Y-m-d");
 
-            $content = $request->getParam('persona_content');
+            $content = $request->getParam('project_content');
 
             $database->update("projects", [
                 "content" => $content,

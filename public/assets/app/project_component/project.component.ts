@@ -4,7 +4,7 @@ import { URLSearchParams } from '@angular/http';
 import { GridBlock } from '../gridBlock_component/gridBlock.component';
 import { gridElem } from '../models/gridElem';
 import { user } from '../models/user';
-import { persona } from '../models/persona';
+import { project } from '../models/project';
 import { textModule } from '../text_module/textModule';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
@@ -14,13 +14,13 @@ declare var $:any;
 declare var toastr:any;
 
 @Component({
-    selector: 'persona',
-    templateUrl: 'assets/app/persona_component/persona.component.html',
+    selector: 'project',
+    templateUrl: 'assets/app/project_component/project.component.html',
 })
 
-export class PersonaComponent {
+export class ProjectComponent {
 
-    personaTitle:any;
+    projectTitle:any;
 
     getData:Array<any> = [];
     gridElements:Array<gridElem> = [];
@@ -41,7 +41,7 @@ export class PersonaComponent {
     ngOnInit() {
         this.httpGet();
         this.subscription = Observable.interval(30000).subscribe(x => {
-             this.savePersonaCall();
+             this.saveProjectCall();
           });
     }
 
@@ -69,15 +69,15 @@ export class PersonaComponent {
             );
     }
 
-    savePersonaCall() {
-        var ajaxurl = '/projects/savePersona',
-        data =  {'author_id': this.author_id, 'project_name': this.project_name, 'project_id': this.project_id, 'persona_content': JSON.stringify(this.gridElements)};
+    saveProjectCall() {
+        var ajaxurl = '/projects/saveProject',
+        data =  {'author_id': this.author_id, 'project_name': this.project_name,'project_id': this.project_id, 'project_content': JSON.stringify(this.gridElements)};
         $.post(ajaxurl, data, function (response:any) {});
     }
 
-    savePersona() {
-        this.savePersonaCall();
-        toastr["success"](" ", "Persona Saved!");
+    saveProject() {
+        this.saveProjectCall();
+        toastr["success"](" ", "Project Saved!");
     }
 
 }

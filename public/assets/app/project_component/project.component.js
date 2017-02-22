@@ -9,8 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/router", "../user.service", "rxjs/Rx", "rxjs/add/operator/map"], function (require, exports, core_1, gridElem_1, router_1, user_service_1, Rx_1) {
     "use strict";
-    var PersonaComponent = (function () {
-        function PersonaComponent(UserService, route) {
+    var ProjectComponent = (function () {
+        function ProjectComponent(UserService, route) {
             this.UserService = UserService;
             this.getData = [];
             this.gridElements = [];
@@ -19,17 +19,17 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/r
             this.project_id = route.snapshot.params['project_id'];
             this.project_name = route.snapshot.params['project_name'];
         }
-        PersonaComponent.prototype.ngOnInit = function () {
+        ProjectComponent.prototype.ngOnInit = function () {
             var _this = this;
             this.httpGet();
             this.subscription = Rx_1.Observable.interval(30000).subscribe(function (x) {
-                _this.savePersonaCall();
+                _this.saveProjectCall();
             });
         };
-        PersonaComponent.prototype.ngOnDestroy = function () {
+        ProjectComponent.prototype.ngOnDestroy = function () {
             this.subscription.unsubscribe();
         };
-        PersonaComponent.prototype.addGridElement = function (dim) {
+        ProjectComponent.prototype.addGridElement = function (dim) {
             var i;
             var maxId = 0;
             for (i = 0; i < this.gridElements.length; i++) {
@@ -39,28 +39,28 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/r
             }
             this.gridElements.push(new gridElem_1.gridElem(dim, maxId + 1, [], '#4c7ba0'));
         };
-        PersonaComponent.prototype.httpGet = function () {
+        ProjectComponent.prototype.httpGet = function () {
             var _this = this;
             this.UserService.getProject(this.author_id, this.project_id)
                 .subscribe(function (data) { return _this.getData = data; }, function (error) { return alert(Error); }, function () { return _this.gridElements = JSON.parse(_this.getData[0].content); });
         };
-        PersonaComponent.prototype.savePersonaCall = function () {
-            var ajaxurl = '/projects/savePersona', data = { 'author_id': this.author_id, 'project_name': this.project_name, 'project_id': this.project_id, 'persona_content': JSON.stringify(this.gridElements) };
+        ProjectComponent.prototype.saveProjectCall = function () {
+            var ajaxurl = '/projects/saveProject', data = { 'author_id': this.author_id, 'project_name': this.project_name, 'project_id': this.project_id, 'project_content': JSON.stringify(this.gridElements) };
             $.post(ajaxurl, data, function (response) { });
         };
-        PersonaComponent.prototype.savePersona = function () {
-            this.savePersonaCall();
-            toastr["success"](" ", "Persona Saved!");
+        ProjectComponent.prototype.saveProject = function () {
+            this.saveProjectCall();
+            toastr["success"](" ", "Project Saved!");
         };
-        return PersonaComponent;
+        return ProjectComponent;
     }());
-    PersonaComponent = __decorate([
+    ProjectComponent = __decorate([
         core_1.Component({
-            selector: 'persona',
-            templateUrl: 'assets/app/persona_component/persona.component.html',
+            selector: 'project',
+            templateUrl: 'assets/app/project_component/project.component.html',
         }),
         __metadata("design:paramtypes", [user_service_1.UserService, router_1.ActivatedRoute])
-    ], PersonaComponent);
-    exports.PersonaComponent = PersonaComponent;
+    ], ProjectComponent);
+    exports.ProjectComponent = ProjectComponent;
 });
-//# sourceMappingURL=persona.component.js.map
+//# sourceMappingURL=project.component.js.map

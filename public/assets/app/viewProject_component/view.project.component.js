@@ -9,8 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 define(["require", "exports", "@angular/core", "@angular/router", "../user.service"], function (require, exports, core_1, router_1, user_service_1) {
     "use strict";
-    var ViewPersonaComponent = (function () {
-        function ViewPersonaComponent(UserService, route) {
+    var ViewProjectComponent = (function () {
+        function ViewProjectComponent(UserService, route) {
             this.UserService = UserService;
             this.getData = [];
             this.gridElements = [];
@@ -19,23 +19,23 @@ define(["require", "exports", "@angular/core", "@angular/router", "../user.servi
             this.project_id = route.snapshot.params['project_id'];
             this.project_name = route.snapshot.params['project_name'];
         }
-        ViewPersonaComponent.prototype.ngOnInit = function () {
+        ViewProjectComponent.prototype.ngOnInit = function () {
             this.httpGet();
         };
-        ViewPersonaComponent.prototype.httpGet = function () {
+        ViewProjectComponent.prototype.httpGet = function () {
             var _this = this;
             this.UserService.getProject(this.author_id, this.project_id)
                 .subscribe(function (data) { return _this.getData = data; }, function (error) { return alert(Error); }, function () { return _this.gridElements = JSON.parse(_this.getData[0].content); });
         };
-        return ViewPersonaComponent;
+        return ViewProjectComponent;
     }());
-    ViewPersonaComponent = __decorate([
+    ViewProjectComponent = __decorate([
         core_1.Component({
-            selector: 'view-persona',
-            templateUrl: 'assets/app/viewPersona_component/view.persona.component.html',
+            selector: 'view-project',
+            templateUrl: 'assets/app/viewProject_component/view.project.component.html',
         }),
         __metadata("design:paramtypes", [user_service_1.UserService, router_1.ActivatedRoute])
-    ], ViewPersonaComponent);
-    exports.ViewPersonaComponent = ViewPersonaComponent;
+    ], ViewProjectComponent);
+    exports.ViewProjectComponent = ViewProjectComponent;
 });
-//# sourceMappingURL=view.persona.component.js.map
+//# sourceMappingURL=view.project.component.js.map

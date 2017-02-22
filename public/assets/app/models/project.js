@@ -1,12 +1,12 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    var persona = (function () {
-        function persona(name, content) {
+    var project = (function () {
+        function project(name, content) {
             this.name = name;
             this.content = content;
         }
-        return persona;
+        return project;
     }());
-    exports.persona = persona;
+    exports.project = project;
 });
-//# sourceMappingURL=persona.js.map
+//# sourceMappingURL=project.js.map

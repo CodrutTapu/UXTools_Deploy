@@ -1,4 +1,4 @@
-export class persona {
+export class project {
 
     name:string
     content:Array<any>;

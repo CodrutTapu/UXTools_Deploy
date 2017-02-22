@@ -6,10 +6,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { newPersonaComponent } from './newPersona_component/newPersona.component';
+import { newSwotAnalysisComponent } from './newSwotAnalysis_component/newSwotAnalysis.component';
+import { newBlankStateComponent } from './newBlankState_component/newBlankState.component';
 import { DndModule } from 'ng2-dnd';
 import { SortablejsModule } from 'angular-sortablejs';
-import { PersonaComponent } from './persona_component/persona.component';
-import { ViewPersonaComponent } from './viewPersona_component/view.persona.component';
+import { ProjectComponent } from './project_component/project.component';
+import { ViewProjectComponent } from './viewProject_component/view.project.component';
 import { GridBlock } from './gridBlock_component/gridBlock.component';
 import { TextModule } from './text_module/text.module';
 import { ViewTextModule } from './text_module/view.text.module'
@@ -45,17 +47,21 @@ import { bgColorModule } from './bgColor_component/bgColor.module';
 const appRoutes: Routes = [
     { path: '', component: DashboardComponent },
     { path: 'new/persona', component: newPersonaComponent },
-    { path: 'view/:author_id/:project_type/:project_id/:project_name', component: ViewPersonaComponent },
-    { path: 'edit/:author_id/:project_type/:project_id/:project_name', component: PersonaComponent },
+    { path: 'new/swot_analysis', component: newSwotAnalysisComponent },
+    { path: 'new/blank_state', component: newBlankStateComponent },
+    { path: 'view/:author_id/:project_id/:project_name', component: ViewProjectComponent },
+    { path: 'edit/:author_id/:project_id/:project_name', component: ProjectComponent },
 ];
 
 @NgModule({
     declarations: [
         AppComponent,
         DashboardComponent,
-        PersonaComponent,
+        ProjectComponent,
         newPersonaComponent,
-        ViewPersonaComponent,
+        newSwotAnalysisComponent,
+        newBlankStateComponent,
+        ViewProjectComponent,
         GridBlock,
         TextModule,
         ViewTextModule,

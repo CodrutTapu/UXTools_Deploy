@@ -4,18 +4,18 @@ import { URLSearchParams } from '@angular/http';
 import { GridBlock } from '../gridBlock_component/gridBlock.component';
 import { gridElem } from '../models/gridElem';
 import { user } from '../models/user';
-import { persona } from '../models/persona';
+import { project } from '../models/project';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 declare var $:any;
 
 @Component({
-    selector: 'view-persona',
-    templateUrl: 'assets/app/viewPersona_component/view.persona.component.html',
+    selector: 'view-project',
+    templateUrl: 'assets/app/viewProject_component/view.project.component.html',
 })
 
-export class ViewPersonaComponent {
-    personaTitle:any;
+export class ViewProjectComponent {
+    projectTitle:any;
 
     getData:Array<any> = [];
     gridElements:Array<gridElem> = [];
