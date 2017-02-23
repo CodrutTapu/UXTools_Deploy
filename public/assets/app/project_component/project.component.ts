@@ -70,8 +70,10 @@ export class ProjectComponent {
     }
 
     saveProjectCall() {
+        var dd = new Date().toISOString().slice(0,10);
+        var dt = new Date().toTimeString().slice(0,8);
         var ajaxurl = '/projects/saveProject',
-        data =  {'author_id': this.author_id, 'project_name': this.project_name,'project_id': this.project_id, 'project_content': JSON.stringify(this.gridElements)};
+        data =  {'author_id': this.author_id, 'project_name': this.project_name,'project_id': this.project_id, 'project_content': JSON.stringify(this.gridElements), 'project_modified': dd + ' ' + dt};
         $.post(ajaxurl, data, function (response:any) {});
     }
 

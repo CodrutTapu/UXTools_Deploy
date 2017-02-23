@@ -45,7 +45,9 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/r
                 .subscribe(function (data) { return _this.getData = data; }, function (error) { return alert(Error); }, function () { return _this.gridElements = JSON.parse(_this.getData[0].content); });
         };
         ProjectComponent.prototype.saveProjectCall = function () {
-            var ajaxurl = '/projects/saveProject', data = { 'author_id': this.author_id, 'project_name': this.project_name, 'project_id': this.project_id, 'project_content': JSON.stringify(this.gridElements) };
+            var dd = new Date().toISOString().slice(0, 10);
+            var dt = new Date().toTimeString().slice(0, 8);
+            var ajaxurl = '/projects/saveProject', data = { 'author_id': this.author_id, 'project_name': this.project_name, 'project_id': this.project_id, 'project_content': JSON.stringify(this.gridElements), 'project_modified': dd + ' ' + dt };
             $.post(ajaxurl, data, function (response) { });
         };
         ProjectComponent.prototype.saveProject = function () {

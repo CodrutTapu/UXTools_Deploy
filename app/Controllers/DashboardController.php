@@ -1143,7 +1143,7 @@
             
             $author_id = $request->getAttribute('author_id');
 
-            $projects = $database->select("projects", "*",["author_id" => $author_id]);
+            $projects = $database->select("projects", "*",["author_id" => $author_id,"ORDER" => ["date_modified" => "DESC",]]);
 
             echo json_encode($projects);
 

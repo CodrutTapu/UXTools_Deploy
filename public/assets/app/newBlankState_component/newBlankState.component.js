@@ -46,13 +46,17 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "../text_mo
             this.id = this.id + 1;
         };
         newBlankStateComponent.prototype.saveNewProjectCall = function () {
-            var ajaxurl = '/projects/saveNewProject', data = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_content': JSON.stringify(this.gridElements) };
+            var dd = new Date().toISOString().slice(0, 10);
+            var dt = new Date().toTimeString().slice(0, 8);
+            var ajaxurl = '/projects/saveNewProject', data = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_content': JSON.stringify(this.gridElements), 'project_created': dd + ' ' + dt };
             $.post(ajaxurl, data, function (response) {
                 localStorage.setItem('insertId', response);
             });
         };
         newBlankStateComponent.prototype.saveProjectCall = function () {
-            var ajaxurl = '/projects/saveProject', data2 = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'project_content': JSON.stringify(this.gridElements) };
+            var dd = new Date().toISOString().slice(0, 10);
+            var dt = new Date().toTimeString().slice(0, 8);
+            var ajaxurl = '/projects/saveProject', data2 = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'project_content': JSON.stringify(this.gridElements), 'project_modified': dd + ' ' + dt };
             $.post(ajaxurl, data2, function (response) { });
         };
         newBlankStateComponent.prototype.saveProject = function () {

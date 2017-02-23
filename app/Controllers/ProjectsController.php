@@ -1222,9 +1222,7 @@
 
             $project_name = $request->getParam('project_name');
 
-            $date_created = date("Y-m-d");
-
-            $date_modified  = date("Y-m-d");
+            $date = $request->getParam('project_created');
 
             $content = $request->getParam('project_content');
 
@@ -1232,8 +1230,8 @@
                 "author_id" => $author_id,
                 "project_type" => "project",
                 "project_name" => $project_name,
-                "date_created" => $date_created,
-                "date_modified" => $date_modified,
+                "date_created" => $date,
+                "date_modified" => $date,
                 "content" => $content,
                 "archived" => 0
             ]);
@@ -1297,7 +1295,7 @@
 
             $project_name = $request->getParam('project_name');
 
-            $date_modified = date("Y-m-d");
+            $date_modified = $request->getParam('project_modified');
 
             $content = $request->getParam('project_content');
 
