@@ -11,13 +11,15 @@
                             <div class="col col-xs-6">
                                 <ul class="nav navbar-nav navbar-right">
                                     <li class="dropdown mr-20">
-                                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-plus-square" aria-hidden="true"></i> New
+                                        <button class="btn btn-sm btn-success dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-plus-square" aria-hidden="true"></i> New
                                         <span class="caret"></span></button>
                                         <ul class="dropdown-menu dropdown-menu-left">
                                             <li><a routerLink="new/blank_state">Create Blank State</a></li>
                                             <li class="divider"></li>
                                             <li><a routerLink="new/persona">Use Persona Template</a></li>
                                             <li><a routerLink="new/swot_analysis">Use SWOT Analysis Template</a></li>
+                                            <li class="divider"></li>
+                                            <li *ngFor="let project of projects"><a *ngIf="project.template == 1" routerLink="/new/template/{{ project.project_id }}/{{ project.project_name }}">{{ project.project_name }}</a></li>
                                         </ul>
                                     </li>
                                     <li class="mr-20"><button type="button" class="btn btn-sm btn-warning view-archived-btn" (click)="changeViewArchivedProjects()"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Archived Projects</button></li>
@@ -39,10 +41,11 @@
                             <tbody *ngIf="viewArchivedProjects == false">
                                 <tr *ngFor="let project of projects" >
                                     <td *ngIf="project.archived == 0" >
-                                        <a class="btn btn-sm btn-success" routerLink="/view/{{ project.author_id }}/{{ project.project_id }}/{{ project.project_name }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                        <a class="btn btn-sm btn-warning" (click)="archiveProject(project.author_id, project.project_id, project.archived)"><i class="fa fa-archive" aria-hidden="true"></i></a>
-                                        <a class="btn btn-sm btn-default" routerLink="/edit/{{ project.author_id }}/{{ project.project_id }}/{{ project.project_name }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                        <a class="btn btn-sm btn-danger" data-toggle="modal" [attr.data-target]="'#confirmDelete' + project.project_id"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        <a class="btn btn-sm btn-success" routerLink="/view/{{ project.author_id }}/{{ project.project_id }}/{{ project.project_name }}" title="View Project"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                        <a class="btn btn-sm btn-default" routerLink="/edit/{{ project.author_id }}/{{ project.project_id }}/{{ project.project_name }}" title="Edit Project"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        <a *ngIf="project.template == 0" class="btn btn-sm btn-primary" (click)="saveAsTemplate(project.project_id)" title="Save as Template"><i class="fa fa-file-text" aria-hidden="true"></i></a>
+                                        <a class="btn btn-sm btn-warning" (click)="archiveProject(project.author_id, project.project_id, project.archived)" title="Archive Project"><i class="fa fa-archive" aria-hidden="true"></i></a>
+                                        <a class="btn btn-sm btn-danger" data-toggle="modal" [attr.data-target]="'#confirmDelete' + project.project_id" title="Delete Project"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                         <div class="modal fade" id="confirmDelete{{project.project_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -78,8 +81,8 @@
                             <tbody *ngIf="viewArchivedProjects == true">
                                 <tr *ngFor="let project of projects" >
                                     <td *ngIf="project.archived == 1" >
-                                        <a class="btn btn-sm btn-warning" (click)="archiveProject(project.author_id, project.project_id, project.archived)"><i class="fa fa-archive" aria-hidden="true"></i></a>
-                                        <a class="btn btn-sm btn-danger" data-toggle="modal" [attr.data-target]="'#confirmDelete' + project.project_id"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        <a class="btn btn-sm btn-warning" (click)="archiveProject(project.author_id, project.project_id, project.archived)" title="Unarchive Project"><i class="fa fa-archive" aria-hidden="true"></i></a>
+                                        <a class="btn btn-sm btn-danger" data-toggle="modal" [attr.data-target]="'#confirmDelete' + project.project_id" title="Delete Project"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                         <div class="modal fade" id="confirmDelete{{project.project_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -110,6 +113,10 @@
                                     <td *ngIf="project.archived == 1" >{{ project.date_created}}</td>
                                     <td *ngIf="project.archived == 1" >{{ project.date_modified }}</td>
                                 </tr>
+                            </tbody>
+
+                            <tbody *ngIf="viewTemplates == true">
+                                gfdjghdfkjhgkjdfh
                             </tbody>
                         </table>
                     </div>

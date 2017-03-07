@@ -48,7 +48,7 @@ export class newSwotAnalysisComponent {
 
     user:any;
     first_save_flag:boolean = true;
-    id:number = 3;
+    id:number = 5;
     subscription:any;
 
     constructor(private UserService: UserService) {}
@@ -104,11 +104,12 @@ export class newSwotAnalysisComponent {
     saveProject() {
         if(this.first_save_flag) {
             this.saveNewProjectCall();
-            toastr["success"](" ", "Project Created!");
             this.first_save_flag = false;
+            toastr["success"](" ", "Project Created!");
         } else {
             this.saveProjectCall();
             toastr["success"](" ", "Project Saved!");
         }
     }
+
 }

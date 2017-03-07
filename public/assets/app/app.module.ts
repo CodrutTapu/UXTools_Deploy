@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { newPersonaComponent } from './newPersona_component/newPersona.component';
 import { newSwotAnalysisComponent } from './newSwotAnalysis_component/newSwotAnalysis.component';
 import { newBlankStateComponent } from './newBlankState_component/newBlankState.component';
+import { newTemplateComponent } from './newTemplate_component/newTemplate.component';
 import { DndModule } from 'ng2-dnd';
 import { SortablejsModule } from 'angular-sortablejs';
 import { ProjectComponent } from './project_component/project.component';
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
     { path: 'new/persona', component: newPersonaComponent },
     { path: 'new/swot_analysis', component: newSwotAnalysisComponent },
     { path: 'new/blank_state', component: newBlankStateComponent },
+    { path: 'new/template/:project_id/:project_name', component: newTemplateComponent },
     { path: 'view/:author_id/:project_id/:project_name', component: ViewProjectComponent },
     { path: 'edit/:author_id/:project_id/:project_name', component: ProjectComponent },
 ];
@@ -61,6 +63,7 @@ const appRoutes: Routes = [
         newPersonaComponent,
         newSwotAnalysisComponent,
         newBlankStateComponent,
+        newTemplateComponent,
         ViewProjectComponent,
         GridBlock,
         TextModule,

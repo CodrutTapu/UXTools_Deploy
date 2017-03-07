@@ -26,7 +26,7 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "../text_mo
                 ], '#4c7ba0')
             ];
             this.first_save_flag = true;
-            this.id = 3;
+            this.id = 5;
         }
         newSwotAnalysisComponent.prototype.ngOnInit = function () {
             var _this = this;
@@ -70,8 +70,8 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "../text_mo
         newSwotAnalysisComponent.prototype.saveProject = function () {
             if (this.first_save_flag) {
                 this.saveNewProjectCall();
-                toastr["success"](" ", "Project Created!");
                 this.first_save_flag = false;
+                toastr["success"](" ", "Project Created!");
             }
             else {
                 this.saveProjectCall();

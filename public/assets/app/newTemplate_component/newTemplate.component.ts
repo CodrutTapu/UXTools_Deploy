@@ -10,29 +10,43 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import { imageModule } from '../image_module/imageModule';
+import { aboutModule } from '../about_module/aboutModule';
+import { aboutItem } from '../about_module/aboutItem';
+import { scaleChartModule } from '../scale_chart_module/scaleChartModule';
+import { scaleChartModuleScale } from '../scale_chart_module/scaleChartModuleScale';
+import { tagModule } from '../tag_module/tagModule';
+import { tagModuleTag } from '../tag_module/tagModuleTag';
+import { barGraphModule } from '../bar_graph_module/barGraphModule';
+import { barGraphBar } from '../bar_graph_module/barGraphBar';
+import { devicesPlatformsModule } from '../devicesPlatforms_module/devicesPlatformsModule';
+import { devicePlatform } from '../devicesPlatforms_module/devicePlatform';
+
 declare var $:any;
 declare var toastr:any;
 
 @Component({
-    selector: 'new-blank-state',
-    templateUrl: 'assets/app/newBlankState_component/newBlankState.component.html',
+    selector: 'new-persona',
+    templateUrl: 'assets/app/newTemplate_component/newTemplate.component.html',
 })
 
-export class newBlankStateComponent {
+export class newTemplateComponent {
 
-    project_name:any = "Blank State";
+    project_id:number;
+    project_name:String;
 
     getData:Array<any> = [];
-    gridElements:Array<gridElem> = [new gridElem(4,1,[new textModule(1,'text-module','<h1>Text Field 1</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra felis in sem porta feugiat.</p>','#F8F8F8')],'#4c7ba0'),
-                                    new gridElem(4,2,[new textModule(1,'text-module','<h1>Text Field 2</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra felis in sem porta feugiat.</p>','#F8F8F8')],'#4c7ba0'),
-                                    new gridElem(4,3,[new textModule(1,'text-module','<h1>Text Field 3</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra felis in sem porta feugiat.</p>','#F8F8F8')],'#4c7ba0')];
+    gridElements:Array<any> = [];
 
     user:any;
     first_save_flag:boolean = true;
     id:number = 3;
     subscription:any;
 
-    constructor(private UserService: UserService) {}
+    constructor(private UserService: UserService, route: ActivatedRoute) {
+        this.project_id = route.snapshot.params['project_id'];
+        this.project_name = route.snapshot.params['project_name'];
+    }
 
     ngOnInit() {
         this.getUser();
@@ -55,7 +69,16 @@ export class newBlankStateComponent {
             .subscribe(
                 data => this.user = data,
                 error => alert(Error),
-                    () => console.log('Finish!')
+                    () => this.httpGet()
+            );
+    }
+
+    httpGet() {
+        this.UserService.getProject(this.user.id,this.project_id)
+            .subscribe(
+                data => this.getData = data,
+                error => alert(Error),
+                    () => this.gridElements = JSON.parse(this.getData[0].content)
             );
     }
 
@@ -85,11 +108,12 @@ export class newBlankStateComponent {
     saveProject() {
         if(this.first_save_flag) {
             this.saveNewProjectCall();
-            this.first_save_flag = false;
             toastr["success"](" ", "Project Created!");
+            this.first_save_flag = false;
         } else {
             this.saveProjectCall();
             toastr["success"](" ", "Project Saved!");
         }
     }
+
 }

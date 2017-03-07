@@ -7,20 +7,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", "@angular/core", "../models/gridElem", "../text_module/textModule", "../user.service", "rxjs/Rx", "rxjs/add/operator/map"], function (require, exports, core_1, gridElem_1, textModule_1, user_service_1, Rx_1) {
+define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/router", "../user.service", "rxjs/Rx", "rxjs/add/operator/map"], function (require, exports, core_1, gridElem_1, router_1, user_service_1, Rx_1) {
     "use strict";
-    var newBlankStateComponent = (function () {
-        function newBlankStateComponent(UserService) {
+    var newTemplateComponent = (function () {
+        function newTemplateComponent(UserService, route) {
             this.UserService = UserService;
-            this.project_name = "Blank State";
             this.getData = [];
-            this.gridElements = [new gridElem_1.gridElem(4, 1, [new textModule_1.textModule(1, 'text-module', '<h1>Text Field 1</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra felis in sem porta feugiat.</p>', '#F8F8F8')], '#4c7ba0'),
-                new gridElem_1.gridElem(4, 2, [new textModule_1.textModule(1, 'text-module', '<h1>Text Field 2</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra felis in sem porta feugiat.</p>', '#F8F8F8')], '#4c7ba0'),
-                new gridElem_1.gridElem(4, 3, [new textModule_1.textModule(1, 'text-module', '<h1>Text Field 3</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra felis in sem porta feugiat.</p>', '#F8F8F8')], '#4c7ba0')];
+            this.gridElements = [];
             this.first_save_flag = true;
             this.id = 3;
+            this.project_id = route.snapshot.params['project_id'];
+            this.project_name = route.snapshot.params['project_name'];
         }
-        newBlankStateComponent.prototype.ngOnInit = function () {
+        newTemplateComponent.prototype.ngOnInit = function () {
             var _this = this;
             this.getUser();
             this.subscription = Rx_1.Observable.interval(30000).subscribe(function (x) {
@@ -33,19 +32,24 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "../text_mo
                 }
             });
         };
-        newBlankStateComponent.prototype.ngOnDestroy = function () {
+        newTemplateComponent.prototype.ngOnDestroy = function () {
             this.subscription.unsubscribe();
         };
-        newBlankStateComponent.prototype.getUser = function () {
+        newTemplateComponent.prototype.getUser = function () {
             var _this = this;
             this.UserService.getCurrentUser()
-                .subscribe(function (data) { return _this.user = data; }, function (error) { return alert(Error); }, function () { return console.log('Finish!'); });
+                .subscribe(function (data) { return _this.user = data; }, function (error) { return alert(Error); }, function () { return _this.httpGet(); });
         };
-        newBlankStateComponent.prototype.addGridElement = function (dim) {
+        newTemplateComponent.prototype.httpGet = function () {
+            var _this = this;
+            this.UserService.getProject(this.user.id, this.project_id)
+                .subscribe(function (data) { return _this.getData = data; }, function (error) { return alert(Error); }, function () { return _this.gridElements = JSON.parse(_this.getData[0].content); });
+        };
+        newTemplateComponent.prototype.addGridElement = function (dim) {
             this.gridElements.push(new gridElem_1.gridElem(dim, this.id + 1, [], '#4c7ba0'));
             this.id = this.id + 1;
         };
-        newBlankStateComponent.prototype.saveNewProjectCall = function () {
+        newTemplateComponent.prototype.saveNewProjectCall = function () {
             var dd = new Date().toISOString().slice(0, 10);
             var dt = new Date().toTimeString().slice(0, 8);
             var ajaxurl = '/projects/saveNewProject', data = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_content': JSON.stringify(this.gridElements), 'project_created': dd + ' ' + dt };
@@ -53,32 +57,32 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "../text_mo
                 localStorage.setItem('insertId', response);
             });
         };
-        newBlankStateComponent.prototype.saveProjectCall = function () {
+        newTemplateComponent.prototype.saveProjectCall = function () {
             var dd = new Date().toISOString().slice(0, 10);
             var dt = new Date().toTimeString().slice(0, 8);
             var ajaxurl = '/projects/saveProject', data2 = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'project_content': JSON.stringify(this.gridElements), 'project_modified': dd + ' ' + dt };
             $.post(ajaxurl, data2, function (response) { });
         };
-        newBlankStateComponent.prototype.saveProject = function () {
+        newTemplateComponent.prototype.saveProject = function () {
             if (this.first_save_flag) {
                 this.saveNewProjectCall();
-                this.first_save_flag = false;
                 toastr["success"](" ", "Project Created!");
+                this.first_save_flag = false;
             }
             else {
                 this.saveProjectCall();
                 toastr["success"](" ", "Project Saved!");
             }
         };
-        return newBlankStateComponent;
+        return newTemplateComponent;
     }());
-    newBlankStateComponent = __decorate([
+    newTemplateComponent = __decorate([
         core_1.Component({
-            selector: 'new-blank-state',
-            templateUrl: 'assets/app/newBlankState_component/newBlankState.component.html',
+            selector: 'new-persona',
+            templateUrl: 'assets/app/newTemplate_component/newTemplate.component.html',
         }),
-        __metadata("design:paramtypes", [user_service_1.UserService])
-    ], newBlankStateComponent);
-    exports.newBlankStateComponent = newBlankStateComponent;
+        __metadata("design:paramtypes", [user_service_1.UserService, router_1.ActivatedRoute])
+    ], newTemplateComponent);
+    exports.newTemplateComponent = newTemplateComponent;
 });
-//# sourceMappingURL=newBlankState.component.js.map
+//# sourceMappingURL=newTemplate.component.js.map

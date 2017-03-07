@@ -124,11 +124,12 @@ export class newPersonaComponent {
     saveProject() {
         if(this.first_save_flag) {
             this.saveNewProjectCall();
-            toastr["success"](" ", "Project Created!");
             this.first_save_flag = false;
+            toastr["success"](" ", "Project Created!");
         } else {
             this.saveProjectCall();
             toastr["success"](" ", "Project Saved!");
         }
     }
+
 }

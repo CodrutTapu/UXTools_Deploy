@@ -1233,7 +1233,8 @@
                 "date_created" => $date,
                 "date_modified" => $date,
                 "content" => $content,
-                "archived" => 0
+                "archived" => 0,
+                "template" => 0
             ]);
 
             return $response->withJson($insertedId);
@@ -1310,6 +1311,40 @@
                     ]
                 ]);
         }
+
+        public function saveAsTemplate($request, $response) {
+            $database = new medoo([
+
+               'database_type' => 'mysql',
+               'database_name' => 'uxtools',
+               'server' => 'localhost',
+               'username' => 'codrut',
+               'password' => '226633',
+               'charset' => 'utf8',
+
+               'port' => 3306,
+
+               'option' => [
+                   PDO::ATTR_CASE => PDO::CASE_NATURAL
+               ]
+            ]);
+
+            $author_id = $request->getParam('author_id');
+
+            $template_name = $request->getParam('template_name');
+
+            $content = $request->getParam('template_content');
+
+            $insertedId = $database->insert("templates", [
+                "author_id" => $author_id,
+                "template_name" => $template_name,
+                "content" => $content,
+            ]);
+
+            return $response->withJson($insertedId);
+
+        }
+
     }
 
 ?>

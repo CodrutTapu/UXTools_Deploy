@@ -13,8 +13,8 @@ define(["require", "exports", "@angular/core", "../user.service"], function (req
         function DashboardComponent(UserService) {
             this.UserService = UserService;
             this.projects = [];
-            this.author_id = 41;
             this.viewArchivedProjects = false;
+            this.viewTemplates = false;
         }
         DashboardComponent.prototype.ngOnInit = function () {
             this.getUser();
@@ -33,6 +33,9 @@ define(["require", "exports", "@angular/core", "../user.service"], function (req
                 $('.view-archived-btn').html('<i class="fa fa-file-archive-o" aria-hidden="true"></i> Archived Projects');
             }
         };
+        DashboardComponent.prototype.changeViewTemplates = function () {
+            this.viewTemplates = !this.viewTemplates;
+        };
         DashboardComponent.prototype.getUser = function () {
             var _this = this;
             this.UserService.getCurrentUser()
@@ -40,20 +43,29 @@ define(["require", "exports", "@angular/core", "../user.service"], function (req
         };
         DashboardComponent.prototype.deleteProject = function (author_id, project_id) {
             var ajaxurl = '/projects/deleteProject', data = { 'author_id': author_id, 'project_id': project_id };
-            $.post(ajaxurl, data, function (response) { });
+            $.post(ajaxurl, data, function (response) {
+                toastr["error"](" ", "Project Deleted!");
+            });
             this.UserServiceGetProjects();
-            toastr["error"](" ", "Project Deleted!");
         };
         DashboardComponent.prototype.archiveProject = function (author_id, project_id, project_archived) {
             var ajaxurl = '/projects/archiveProject', data = { 'author_id': author_id, 'project_id': project_id };
-            $.post(ajaxurl, data, function (response) { });
+            $.post(ajaxurl, data, function (response) {
+                if (project_archived == 1) {
+                    toastr["warning"](" ", "Project Unarchived!");
+                }
+                else {
+                    toastr["warning"](" ", "Project Archived!");
+                }
+            });
             this.UserServiceGetProjects();
-            if (project_archived == 1) {
-                toastr["warning"](" ", "Project Unarchived!");
-            }
-            else {
-                toastr["warning"](" ", "Project Archived!");
-            }
+        };
+        DashboardComponent.prototype.saveAsTemplate = function (project_id) {
+            var ajaxurl = '/projects/saveAsTemplate', data = { 'project_id': project_id };
+            $.post(ajaxurl, data, function (response) {
+                toastr["success"](" ", "Saved as Template!");
+            });
+            this.UserServiceGetProjects();
         };
         return DashboardComponent;
     }());

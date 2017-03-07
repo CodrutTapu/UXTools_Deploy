@@ -90,8 +90,8 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "../text_mo
         newPersonaComponent.prototype.saveProject = function () {
             if (this.first_save_flag) {
                 this.saveNewProjectCall();
-                toastr["success"](" ", "Project Created!");
                 this.first_save_flag = false;
+                toastr["success"](" ", "Project Created!");
             }
             else {
                 this.saveProjectCall();

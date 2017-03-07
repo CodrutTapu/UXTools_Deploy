@@ -15,8 +15,8 @@ export class DashboardComponent {
 
     projects:Array<any> = [];
     user:any;
-    author_id:number = 41;
     viewArchivedProjects:boolean = false;
+    viewTemplates:boolean = false;
 
     constructor(private UserService: UserService) {}
 
@@ -42,6 +42,10 @@ export class DashboardComponent {
         }
     }
 
+    changeViewTemplates() {
+        this.viewTemplates = !this.viewTemplates;
+    }
+
     getUser() {
         this.UserService.getCurrentUser()
             .subscribe(
@@ -54,21 +58,32 @@ export class DashboardComponent {
     deleteProject(author_id:any, project_id:any) {
         var ajaxurl = '/projects/deleteProject',
         data =  {'author_id': author_id, 'project_id': project_id};
-        $.post(ajaxurl, data, function (response:any) {});
+        $.post(ajaxurl, data, function (response:any) {
+            toastr["error"](" ", "Project Deleted!");
+        });
         this.UserServiceGetProjects();
-        toastr["error"](" ", "Project Deleted!");
     }
 
     archiveProject(author_id:any, project_id:any, project_archived:any) {
         var ajaxurl = '/projects/archiveProject',
         data =  {'author_id': author_id, 'project_id': project_id};
-        $.post(ajaxurl, data, function (response:any) {});
+        $.post(ajaxurl, data, function (response:any) {
+            if( project_archived == 1 ) {
+                toastr["warning"](" ", "Project Unarchived!");
+            } else {
+                toastr["warning"](" ", "Project Archived!");
+            }
+        });
         this.UserServiceGetProjects();
-        if( project_archived == 1 ) {
-            toastr["warning"](" ", "Project Unarchived!");
-        } else {
-            toastr["warning"](" ", "Project Archived!");
-        }
+    }
+
+    saveAsTemplate(project_id:any) {
+        var ajaxurl = '/projects/saveAsTemplate',
+        data =  {'project_id': project_id};
+        $.post(ajaxurl, data, function (response:any) {
+            toastr["success"](" ", "Saved as Template!");
+        });
+        this.UserServiceGetProjects();
     }
 
 }
