@@ -51,7 +51,7 @@
                 return $response->withRedirect($this->router->pathFor('password.forgot'));
             } else {
 
-                $token = bin2hex(random_bytes(200));
+                $token = bin2hex(random_bytes(60));
                 $url = "http://52.90.171.184/auth/password/reset/" . $token . "/" . $email_exist[0];
 
                 $this->db->update("users", [
