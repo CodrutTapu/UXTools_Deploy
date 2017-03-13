@@ -61,7 +61,6 @@
                 ]);
 
                 $full_name= 'UXTools';
-                $email = 'test@gmail.com';
                 $subject = 'Password Reset';
                 $message= $url;
                 $to = $email;
