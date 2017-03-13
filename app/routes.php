@@ -13,6 +13,12 @@
         $this->get('/auth/signin','AuthController:getSignIn')->setName('auth.signin');
         $this->post('/auth/signin','AuthController:postSignIn');
 
+        $this->get('/auth/password/forgot','PasswordController:getForgotPassword')->setName('password.forgot');
+        $this->post('/auth/password/forgot','PasswordController:postForgotPassword');
+
+        $this->get('/auth/password/reset/{reset_password_token}/{user_id}','PasswordController:getResetPassword');
+        $this->post('/auth/password/reset','PasswordController:postResetPassword')->setName('password.reset');
+
 
     })->add(new GuestMiddleware($container));
 

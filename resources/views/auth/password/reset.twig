@@ -1,0 +1,56 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Reset password</div>
+                <div class="panel-body">
+                    <form class="" action="{{ path_for('password.reset') }}" method="post" autocomplete="off">
+                        <div class="form-group{{ errors.new_password ? ' has-error' : '' }}">
+                            <label for="email">New Password</label>
+                            <input class="form-control" type="password" name="new_password" id="new_password" required>
+                            {% if errors.new_password %}
+                                <span class="help-block">{{ errors.new_password | first }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="form-group{{ errors.new_password_confirm ? ' has-error' : '' }}">
+                            <label for="email">Confirm New Password</label>
+                            <input class="form-control" type="password" name="new_password_confirm" id="new_password_confirm" required>
+                            {% if errors.new_password_confirm %}
+                                <span class="help-block">{{ errors.new_password_confirm | first }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" name="reset_password_token" value="{{reset_password_token}}">
+                            <input type="hidden" name="user_id" value="{{user_id}}">
+                        </div>
+                        <div class="form-group" id="validate-status">
+                            
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Reset Password</button>
+                            {{ csrf.field | raw }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#new_password_confirm").keyup(validate);
+        });
+        function validate() {
+            var pass1 = $("#new_password").val();
+            var pass2 = $("#new_password_confirm").val();
+            if(pass1 != pass2) {
+                $("#validate-status").html("<p style=\'color: #a94442;\'>Password doesn\'t match!</p>");
+            } else {
+                 $("#validate-status").html("");
+            }
+        }
+    </script>
+{% endblock %}
+
+

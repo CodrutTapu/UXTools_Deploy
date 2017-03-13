@@ -55,11 +55,10 @@
             $validation = $this->validator->validate($request, [
                 'full_name' => v::notEmpty()->alpha(),
                 'email' => v::noWhitespace()->notEmpty()->email()->EmailAvailable(),
-                'password' => v::noWhitespace()->notEmpty(),
+                'password' => v::noWhitespace()->length(6, 50),
             ]);
 
             if($validation->failed()) {
-                //return $response->withJson(['validation'=>false]);
                 return $response->withRedirect($this->router->pathFor('auth.signup'));
             }
 
@@ -67,6 +66,7 @@
                 "full_name" => $request->getParam('full_name'),
                 "email" => $request->getParam('email'),
                 "password" => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
+                "reset_password_token" => Null,
             ]);
 
             $this->flash->addMessage('info', 'You have been signed up!');
@@ -82,8 +82,6 @@
                 "email" => $request->getParam('email')
             ];
 
-            //return $response->withJson($registered_user);
-            //return $response->withRedirect($this->router->pathFor('dashboard'));
             return $response->withRedirect($this->router->pathFor('home'));
         }
 
