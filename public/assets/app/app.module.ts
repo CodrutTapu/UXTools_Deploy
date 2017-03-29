@@ -8,6 +8,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { newPersonaComponent } from './newPersona_component/newPersona.component';
 import { newSwotAnalysisComponent } from './newSwotAnalysis_component/newSwotAnalysis.component';
 import { newBlankStateComponent } from './newBlankState_component/newBlankState.component';
+import { newMindMapComponent } from './newMindMap_component/newMindMap.component';
+import { viewMindMapComponent } from './viewMindMap_component/viewMindMap.component';
+import { editMindMapComponent } from './editMindMap_component/editMindMap.component';
 import { newTemplateComponent } from './newTemplate_component/newTemplate.component';
 import { DndModule } from 'ng2-dnd';
 import { SortablejsModule } from 'angular-sortablejs';
@@ -50,6 +53,9 @@ const appRoutes: Routes = [
     { path: 'new/persona', component: newPersonaComponent },
     { path: 'new/swot_analysis', component: newSwotAnalysisComponent },
     { path: 'new/blank_state', component: newBlankStateComponent },
+    { path: 'new/mind-map', component: newMindMapComponent },
+    { path: 'view/mind-map/:author_id/:project_id/:project_name', component: viewMindMapComponent},
+    { path: 'edit/mind-map/:author_id/:project_id/:project_name', component: editMindMapComponent},
     { path: 'new/template/:project_id/:project_name', component: newTemplateComponent },
     { path: 'view/:author_id/:project_id/:project_name', component: ViewProjectComponent },
     { path: 'edit/:author_id/:project_id/:project_name', component: ProjectComponent },
@@ -64,6 +70,9 @@ const appRoutes: Routes = [
         newSwotAnalysisComponent,
         newBlankStateComponent,
         newTemplateComponent,
+        newMindMapComponent,
+        editMindMapComponent,
+        viewMindMapComponent,
         ViewProjectComponent,
         GridBlock,
         TextModule,

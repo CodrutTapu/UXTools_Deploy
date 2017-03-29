@@ -56,7 +56,7 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "../text_mo
         newSwotAnalysisComponent.prototype.saveNewProjectCall = function () {
             var dd = new Date().toISOString().slice(0, 10);
             var dt = new Date().toTimeString().slice(0, 8);
-            var ajaxurl = '/projects/saveNewProject', data = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_content': JSON.stringify(this.gridElements), 'project_created': dd + ' ' + dt };
+            var ajaxurl = '/projects/saveNewProject', data = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_content': JSON.stringify(this.gridElements), 'project_created': dd + ' ' + dt, 'project_type': 'swot' };
             $.post(ajaxurl, data, function (response) {
                 localStorage.setItem('insertId', response);
             });

@@ -1,38 +1,33 @@
 import { Component } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { URLSearchParams } from '@angular/http';
-import { GridBlock } from '../gridBlock_component/gridBlock.component';
-import { gridElem } from '../models/gridElem';
 import { user } from '../models/user';
-import { project } from '../models/project';
-import { textModule } from '../text_module/textModule';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 declare var $:any;
 declare var toastr:any;
+declare var jsMind:any;
+declare var _jm:any;
 
 @Component({
-    selector: 'new-blank-state',
-    templateUrl: 'assets/app/newBlankState_component/newBlankState.component.html',
+    selector: 'new-mind-map',
+    templateUrl: 'assets/app/newMindMap_component/newMindMap.component.html',
 })
 
-export class newBlankStateComponent {
+export class newMindMapComponent {
 
-    project_name:any = "Blank State";
-
-    getData:Array<any> = [];
-    gridElements:Array<gridElem> = [new gridElem(4,1,[new textModule(1,'text-module','<h1>Text Field 1</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra felis in sem porta feugiat.</p>','#F8F8F8')],'#4c7ba0'),
-                                    new gridElem(4,2,[new textModule(1,'text-module','<h1>Text Field 2</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra felis in sem porta feugiat.</p>','#F8F8F8')],'#4c7ba0'),
-                                    new gridElem(4,3,[new textModule(1,'text-module','<h1>Text Field 3</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra felis in sem porta feugiat.</p>','#F8F8F8')],'#4c7ba0')];
-
+    project_name:any = "Default Mind Map";
     user:any;
     first_save_flag:boolean = true;
-    id:number = 3;
     subscription:any;
 
     constructor(private UserService: UserService) {}
+
+    ngAfterViewInit() {
+        $.getScript( "/assets/vendor/jsmind.custom.js", function() { });
+    }
 
     ngOnInit() {
         this.getUser();
@@ -59,26 +54,27 @@ export class newBlankStateComponent {
             );
     }
 
-    addGridElement(dim:number) {
-        this.gridElements.push(new gridElem(dim,this.id+1,[],'#4c7ba0'));
-        this.id = this.id+1;
-    }
-
     saveNewProjectCall() {
+        var mind_data = _jm.get_data();
+        var mind_name = mind_data.meta.name;
+        var mind_str = jsMind.util.json.json2string(mind_data);
         var dd = new Date().toISOString().slice(0,10);
         var dt = new Date().toTimeString().slice(0,8);
         var ajaxurl = '/projects/saveNewProject',
-        data =  {'author_id': this.user.id, 'project_name': this.project_name, 'project_content': JSON.stringify(this.gridElements), 'project_created': dd + ' ' + dt,'project_type': 'custom_project'};
+        data =  {'author_id': this.user.id, 'project_name': this.project_name, 'project_content': mind_str, 'project_created': dd + ' ' + dt, 'project_type': 'mind_map'};
         $.post(ajaxurl, data, function (response:any) {
             localStorage.setItem('insertId', response);
         });
     }
 
     saveProjectCall() {
+        var mind_data = _jm.get_data();
+        var mind_name = mind_data.meta.name;
+        var mind_str = jsMind.util.json.json2string(mind_data);
         var dd = new Date().toISOString().slice(0,10);
         var dt = new Date().toTimeString().slice(0,8);
         var ajaxurl = '/projects/saveProject',
-        data2 =  {'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'project_content': JSON.stringify(this.gridElements), 'project_modified': dd + ' ' + dt};
+        data2 =  {'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'project_content': mind_str, 'project_modified': dd + ' ' + dt};
         $.post(ajaxurl, data2, function (response:any) {});
     }
 

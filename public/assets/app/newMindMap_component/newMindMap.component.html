@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="form-inline">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="personaTitle" [(ngModel)]="project_name">
+                    <button type="button" class="btn btn-success" name="button" (click)="saveProject()">Save</button>
+                </div>
+            </form>
+            <br>
+            <div class="btn-group">
+                <button class="btn btn-danger" routerLink="/">Go Back</button>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-2">
+            <div id="jsmind_nav">
+                <div class="btn-group-vertical">
+                    <button type="button" class="btn btn-primary" onclick="toggle_editable(this);">Disable Editable</button>
+                    <button type="button" class="btn btn-primary" onclick="add_node();">Add a Node</button>
+                    <button type="button" class="btn btn-primary" onclick="add_image_node();">Add a Image Node</button>
+                    <button type="button" class="btn btn-primary" onclick="remove_node();">Remove Node</button>
+                    <button type="button" class="btn btn-primary" onclick="zoomIn();" id="zoom-in-button">Zoom In</button>
+                    <button type="button" class="btn btn-primary" onclick="zoomOut();" id="zoom-out-button">Zoom Out</button>
+                    <label for="theme">Theme:</label>
+                    <select class="form-control" id="theme" onchange="set_theme(this.value);">
+                        <option value="">Default</option>
+                        <option value="primary">Primary</option>
+                        <option value="warning">Warning</option>
+                        <option value="danger">Danger</option>
+                        <option value="success">Success</option>
+                        <option value="info">Info</option>
+                        <option value="greensea" selected="selected">Greensea</option>
+                        <option value="nephrite">Nephrite</option>
+                        <option value="belizehole">Belizehole</option>
+                        <option value="wisteria">Wisteria</option>
+                        <option value="asphalt">Asphalt</option>
+                        <option value="orange">Orange</option>
+                        <option value="pumpkin">Pumpkin</option>
+                        <option value="pomegranate">Pomegranate</option>
+                        <option value="clouds">Clouds</option>
+                        <option value="asbestos">Asbestos</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-10">
+            <div id="jsmind_container"></div>
+            <div style="display:none">
+                <input class="file" type="file" id="image-chooser" accept="image/*"/>
+            </div>
+        </div>
+    </div>
+<div>

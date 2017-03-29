@@ -1220,6 +1220,8 @@
 
             $author_id = $request->getParam('author_id');
 
+            $project_type = $request->getParam('project_type');
+
             $project_name = $request->getParam('project_name');
 
             $date = $request->getParam('project_created');
@@ -1228,7 +1230,7 @@
 
             $insertedId = $database->insert("projects", [
                 "author_id" => $author_id,
-                "project_type" => "project",
+                "project_type" => $project_type,
                 "project_name" => $project_name,
                 "date_created" => $date,
                 "date_modified" => $date,

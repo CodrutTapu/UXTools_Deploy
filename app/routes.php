@@ -45,6 +45,9 @@
         $this->get('/edit/{author_id}/{project_id}/{project_name}','HomeController:home');
         $this->get('/view/{author_id}/{project_id}/{project_name}','ShareController:shareProject');
         $this->get('/new/template/{project_id}/{project_name}', 'HomeController:home');
+        $this->get('/new/mind-map','HomeController:home');
+        $this->get('/view/mind-map/{author_id}/{project_id}/{project_name}','HomeController:home');
+        $this->get('/edit/mind-map/{author_id}/{project_id}/{project_name}','HomeController:home');
 
     })->add(new AuthMiddleware($container));
 
