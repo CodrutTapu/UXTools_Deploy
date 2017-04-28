@@ -1,5 +1,6 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var textModule = (function () {
         function textModule(id, name, content, bgColor) {
             this.id = id;

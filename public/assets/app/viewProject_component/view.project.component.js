@@ -9,10 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 define(["require", "exports", "@angular/core", "@angular/router", "../user.service"], function (require, exports, core_1, router_1, user_service_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var ViewProjectComponent = (function () {
         function ViewProjectComponent(UserService, route) {
             this.UserService = UserService;
-            this.getData = [];
+            this.getProject = [];
             this.gridElements = [];
             this.author_id = route.snapshot.params['author_id'];
             this.project_type = route.snapshot.params['project_type'];
@@ -21,11 +22,17 @@ define(["require", "exports", "@angular/core", "@angular/router", "../user.servi
         }
         ViewProjectComponent.prototype.ngOnInit = function () {
             this.httpGet();
+            this.getUser();
         };
         ViewProjectComponent.prototype.httpGet = function () {
             var _this = this;
             this.UserService.getProject(this.author_id, this.project_id)
-                .subscribe(function (data) { return _this.getData = data; }, function (error) { return alert(Error); }, function () { return _this.gridElements = JSON.parse(_this.getData[0].content); });
+                .subscribe(function (data) { _this.getProject = data, _this.projectExpanded = data[0].expanded; }, function (error) { return alert(Error); }, function () { return _this.gridElements = JSON.parse(_this.getProject[0].content); });
+        };
+        ViewProjectComponent.prototype.getUser = function () {
+            var _this = this;
+            this.UserService.getCurrentUser()
+                .subscribe(function (data) { return _this.currentUser = data; }, function (error) { return alert(Error); });
         };
         return ViewProjectComponent;
     }());

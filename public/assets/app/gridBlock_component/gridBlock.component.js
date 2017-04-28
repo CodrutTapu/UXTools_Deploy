@@ -4,8 +4,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define(["require", "exports", "@angular/core", "../text_module/textModule", "../image_module/imageModule", "../bar_graph_module/barGraphModule", "../bar_graph_module/barGraphBar", "../social_media_module/socialMediaModule", "../tag_module/tagModule", "../tag_module/tagModuleTag", "../email_module/emailModule", "../scale_chart_module/scaleChartModule", "../scale_chart_module/scaleChartModuleScale", "../pie_chart_module/pieChartModule", "../accordion_module/accordionModule", "../accordion_module/accordionItem", "../tabs_module/tabsModule", "../tabs_module/tabsItem", "../embed_module/embedModule", "../devicesPlatforms_module/devicesPlatformsModule", "../devicesPlatforms_module/devicePlatform", "../about_module/aboutModule", "../about_module/aboutItem", "../counting_module/countingModule"], function (require, exports, core_1, textModule_1, imageModule_1, barGraphModule_1, barGraphBar_1, socialMediaModule_1, tagModule_1, tagModuleTag_1, emailModule_1, scaleChartModule_1, scaleChartModuleScale_1, pieChartModule_1, accordionModule_1, accordionItem_1, tabsModule_1, tabsItem_1, embedModule_1, devicesPlatformsModule_1, devicePlatform_1, aboutModule_1, aboutItem_1, countingModule_1) {
+define(["require", "exports", "@angular/core", "../text_module/textModule", "../image_module/imageModule", "../bar_graph_module/barGraphModule", "../bar_graph_module/barGraphBar", "../social_media_module/socialMediaModule", "../tag_module/tagModule", "../tag_module/tagModuleTag", "../email_module/emailModule", "../scale_chart_module/scaleChartModule", "../scale_chart_module/scaleChartModuleScale", "../pie_chart_module/pieChartModule", "../accordion_module/accordionModule", "../accordion_module/accordionItem", "../tabs_module/tabsModule", "../tabs_module/tabsItem", "../embed_module/embedModule", "../devicesPlatforms_module/devicesPlatformsModule", "../devicesPlatforms_module/devicePlatform", "../about_module/aboutModule", "../about_module/aboutItem", "../counting_module/countingModule", "../mindMap_module/mindMapModule"], function (require, exports, core_1, textModule_1, imageModule_1, barGraphModule_1, barGraphBar_1, socialMediaModule_1, tagModule_1, tagModuleTag_1, emailModule_1, scaleChartModule_1, scaleChartModuleScale_1, pieChartModule_1, accordionModule_1, accordionItem_1, tabsModule_1, tabsItem_1, embedModule_1, devicesPlatformsModule_1, devicePlatform_1, aboutModule_1, aboutItem_1, countingModule_1, mindMapModule_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var GridBlock = (function () {
         function GridBlock() {
             this.gridElements = [];
@@ -15,6 +16,24 @@ define(["require", "exports", "@angular/core", "../text_module/textModule", "../
                 animation: 150
             };
         }
+        GridBlock.prototype.toggleExpand = function () {
+            if (this.projectExpanded == 1) {
+                this.projectExpanded = 0;
+            }
+            else {
+                this.projectExpanded = 1;
+            }
+            localStorage.setItem('project_expanded', this.projectExpanded);
+            var mainContainer = $('#mainContainer');
+            if (mainContainer.hasClass('container')) {
+                mainContainer.removeClass('container');
+                mainContainer.addClass('container-fluid');
+            }
+            else {
+                mainContainer.removeClass('container-fluid');
+                mainContainer.addClass('container');
+            }
+        };
         GridBlock.prototype.minGridElem = function (gE) {
             if (gE.dim == 2) {
                 alert("Too Small");
@@ -195,6 +214,16 @@ define(["require", "exports", "@angular/core", "../text_module/textModule", "../
             gE.modules.push(new countingModule_1.countingModule(14, 'counting-module', ['<p class="counting-value"><span class="counting-prefix">$ <span><span class="number">00</span></p>', '<p class="counting-description">Something you want to count</p>'], '#F8F8F8'));
             $('.add-module-modal').modal('hide');
         };
+        GridBlock.prototype.addMindMapModule = function (gE) {
+            if (gE.dim == 12) {
+                gE.modules.push(new mindMapModule_1.mindMapModule(15, 'mind-map-module', 'mind map', '#F8F8F8'));
+                $('.add-module-modal').modal('hide');
+            }
+            else {
+                alert("Mind Map module can only be added inside 6/6 layout element!");
+                $('.add-module-modal').modal('hide');
+            }
+        };
         return GridBlock;
     }());
     GridBlock = __decorate([
@@ -202,7 +231,7 @@ define(["require", "exports", "@angular/core", "../text_module/textModule", "../
             selector: 'grid-block',
             templateUrl: 'assets/app/gridBlock_component/grid-block.html',
             styleUrls: ['assets/app/gridBlock_component/grid-block.css'],
-            inputs: ['gridElements', 'currentUser']
+            inputs: ['gridElements', 'currentUser', 'projectExpanded']
         })
     ], GridBlock);
     exports.GridBlock = GridBlock;

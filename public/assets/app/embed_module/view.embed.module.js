@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 define(["require", "exports", "@angular/core", "@angular/platform-browser"], function (require, exports, core_1, platform_browser_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var ViewEmbedModule = (function () {
         function ViewEmbedModule(sanitizer) {
             this.sanitizer = sanitizer;

@@ -70,11 +70,13 @@ export class newPersonaComponent {
     first_save_flag:boolean = true;
     id:number = 3;
     subscription:any;
+    projectExpanded:any = 0;
 
     constructor(private UserService: UserService) {}
 
     ngOnInit() {
         this.getUser();
+        localStorage.setItem('project_expanded', this.projectExpanded);
         this.subscription = Observable.interval(30000).subscribe(x => {
             if(this.first_save_flag) {
                 this.saveNewProjectCall();
@@ -107,7 +109,7 @@ export class newPersonaComponent {
         var dd = new Date().toISOString().slice(0,10);
         var dt = new Date().toTimeString().slice(0,8);
         var ajaxurl = '/projects/saveNewProject',
-        data =  {'author_id': this.user.id, 'project_name': this.project_name, 'project_content': JSON.stringify(this.gridElements), 'project_created': dd + ' ' + dt,'project_type': 'persona'};
+        data =  {'author_id': this.user.id, 'project_name': this.project_name, 'project_content': JSON.stringify(this.gridElements), 'project_created': dd + ' ' + dt,'project_type': 'persona', 'project_expanded': localStorage.getItem('project_expanded') };
         $.post(ajaxurl, data, function (response:any) {
             localStorage.setItem('insertId', response);
         });
@@ -117,7 +119,7 @@ export class newPersonaComponent {
         var dd = new Date().toISOString().slice(0,10);
         var dt = new Date().toTimeString().slice(0,8);
         var ajaxurl = '/projects/saveProject',
-        data2 =  {'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'project_content': JSON.stringify(this.gridElements), 'project_modified': dd + ' ' + dt};
+        data2 =  {'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'project_content': JSON.stringify(this.gridElements), 'project_modified': dd + ' ' + dt, 'project_expanded': localStorage.getItem('project_expanded')};
         $.post(ajaxurl, data2, function (response:any) {});
     }
 

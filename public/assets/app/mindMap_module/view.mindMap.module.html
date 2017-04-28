@@ -1,0 +1,12 @@
+<script type="text/javascript">
+	var options = {
+            container:'view_jsmind_container',
+            theme:'greensea',
+            editable:false
+        };
+        var jm = new jsMind(options);
+        jm.show(localStorage.getItem('mind_map_content'));
+</script>
+<div class="mind-map-module" [style.background]="module.bgColor"><!-- View Mind Map Module -->
+    <div id="view_jsmind_container"></div>
+</div>

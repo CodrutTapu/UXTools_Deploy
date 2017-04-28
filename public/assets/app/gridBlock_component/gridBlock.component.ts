@@ -50,23 +50,48 @@ import { CountingModule } from '../counting_module/counting.module';
 import { countingModule } from '../counting_module/countingModule';
 import { ViewCountingModule } from '../counting_module/view.counting.module';
 import { colorSchemeModule } from '../colorScheme_component/colorScheme.module';
+import { MindMapModule } from '../mindMap_module/mindMap.module';
+import { mindMapModule } from '../mindMap_module/mindMapModule';
 declare var $: any;
 
 @Component({
     selector: 'grid-block',
     templateUrl: 'assets/app/gridBlock_component/grid-block.html',
     styleUrls: ['assets/app/gridBlock_component/grid-block.css'],
-    inputs: ['gridElements','currentUser']
+    inputs: ['gridElements','currentUser','projectExpanded']
 })
 
 export class GridBlock {
+
     gridElements:Array<number> = [];
+    projectExpanded:any;
 
     gE_modules_options: SortablejsOptions = {
         group: 'gE_modules',
         handle: '.move',
         animation: 150
     };
+
+    toggleExpand() {
+
+        if(this.projectExpanded == 1) {
+            this.projectExpanded = 0;
+        } else {
+            this.projectExpanded = 1;
+        }
+
+        localStorage.setItem('project_expanded', this.projectExpanded);
+
+        var mainContainer = $('#mainContainer');
+
+        if (mainContainer.hasClass('container')) {
+            mainContainer.removeClass('container');
+            mainContainer.addClass('container-fluid');
+        } else {
+            mainContainer.removeClass('container-fluid');
+            mainContainer.addClass('container');
+        }
+    }
 
     minGridElem(gE:any) {
         if(gE.dim == 2){
@@ -263,6 +288,17 @@ export class GridBlock {
     addPrefixedCountingModule(gE:any) {
         gE.modules.push(new countingModule(14,'counting-module',['<p class="counting-value"><span class="counting-prefix">$ <span><span class="number">00</span></p>','<p class="counting-description">Something you want to count</p>'],'#F8F8F8'));
         $('.add-module-modal').modal('hide');
+    }
+
+    addMindMapModule(gE:any) {
+        if(gE.dim == 12) {
+            gE.modules.push(new mindMapModule(15,'mind-map-module','mind map','#F8F8F8'));
+            $('.add-module-modal').modal('hide');
+        } else {
+            alert("Mind Map module can only be added inside 6/6 layout element!");
+            $('.add-module-modal').modal('hide');
+        }
+        
     }
 
 }

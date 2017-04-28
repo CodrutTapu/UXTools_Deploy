@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 define(["require", "exports", "@angular/core", "./tagModuleTag", "../cloneModule_service/cloneModule.service"], function (require, exports, core_1, tagModuleTag_1, cloneModule_service_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var TagModule = (function () {
         function TagModule(_cloneModuleService) {
             this._cloneModuleService = _cloneModuleService;

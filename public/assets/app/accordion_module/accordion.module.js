@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 define(["require", "exports", "@angular/core", "./accordionItem", "../cloneModule_service/cloneModule.service"], function (require, exports, core_1, accordionItem_1, cloneModule_service_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var AccordionModule = (function () {
         function AccordionModule(_cloneModuleService) {
             this._cloneModuleService = _cloneModuleService;

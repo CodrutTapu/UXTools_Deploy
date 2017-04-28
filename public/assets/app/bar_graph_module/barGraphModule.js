@@ -1,5 +1,6 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var barGraphModule = (function () {
         function barGraphModule(id, name, title, bars, bgColor) {
             this.id = id;

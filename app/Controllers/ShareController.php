@@ -1123,7 +1123,7 @@
         {
             return $this->view->render($response,'index.twig');
         }
-
+        
     }
 
 ?>

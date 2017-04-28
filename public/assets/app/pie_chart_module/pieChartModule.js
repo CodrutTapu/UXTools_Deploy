@@ -1,5 +1,6 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var pieChartModule = (function () {
         function pieChartModule(id, pieId, name, title, labels, data, bgColor) {
             this.id = id;

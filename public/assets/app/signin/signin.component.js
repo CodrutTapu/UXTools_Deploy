@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 define(["require", "exports", "@angular/core", "@angular/router", "../user.service"], function (require, exports, core_1, router_1, user_service_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var SigninComponent = (function () {
         function SigninComponent(router, userService) {
             this.router = router;

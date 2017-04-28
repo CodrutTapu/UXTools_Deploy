@@ -22,7 +22,7 @@ export class ProjectComponent {
 
     projectTitle:any;
 
-    getData:Array<any> = [];
+    projectExpanded:any;
     gridElements:Array<gridElem> = [];
 
     author_id:number;
@@ -63,9 +63,8 @@ export class ProjectComponent {
     httpGet() {
         this.UserService.getProject(this.author_id, this.project_id)
             .subscribe(
-                data => this.getData = data,
-                error => alert(Error),
-                    () => this.gridElements = JSON.parse(this.getData[0].content)
+                data => { this.gridElements = JSON.parse(data[0].content), this.projectExpanded = data[0].expanded, localStorage.setItem('project_expanded', this.projectExpanded); this.expandProject();},
+                error => alert(Error)
             );
     }
 
@@ -73,13 +72,21 @@ export class ProjectComponent {
         var dd = new Date().toISOString().slice(0,10);
         var dt = new Date().toTimeString().slice(0,8);
         var ajaxurl = '/projects/saveProject',
-        data =  {'author_id': this.author_id, 'project_name': this.project_name,'project_id': this.project_id, 'project_content': JSON.stringify(this.gridElements), 'project_modified': dd + ' ' + dt};
+        data =  {'author_id': this.author_id, 'project_name': this.project_name,'project_id': this.project_id, 'project_content': JSON.stringify(this.gridElements), 'project_modified': dd + ' ' + dt, 'project_expanded': localStorage.getItem('project_expanded') };
         $.post(ajaxurl, data, function (response:any) {});
     }
 
     saveProject() {
         this.saveProjectCall();
         toastr["success"](" ", "Project Saved!");
+    }
+
+    expandProject() {
+        if(this.projectExpanded == 1) {
+            var mainContainer = $('#mainContainer');
+            mainContainer.removeClass('container');
+            mainContainer.addClass('container-fluid');
+        }
     }
 
 }

@@ -47,6 +47,8 @@ import { CountingModule } from './counting_module/counting.module';
 import { ViewCountingModule } from './counting_module/view.counting.module';
 import { colorSchemeModule } from './colorScheme_component/colorScheme.module';
 import { bgColorModule } from './bgColor_component/bgColor.module';
+import { MindMapModule } from './mindMap_module/mindMap.module';
+import { ViewMindMapModule } from './mindMap_module/view.mindMap.module';
 
 const appRoutes: Routes = [
     { path: '', component: DashboardComponent },
@@ -104,7 +106,9 @@ const appRoutes: Routes = [
         CountingModule,
         ViewCountingModule,
         colorSchemeModule,
-        bgColorModule
+        bgColorModule,
+        MindMapModule,
+        ViewMindMapModule
     ],
     imports: [
         RouterModule.forRoot(appRoutes),

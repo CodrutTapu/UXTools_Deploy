@@ -1,0 +1,20 @@
+/*
+==================================
+    Mind Map Module
+==================================
+*/
+.mind-map-module {
+    padding: 10px;
+}
+
+.mind-map-module p {
+    text-align: justify;
+}
+
+#theme {
+	height: 34px;
+}
+
+#jsmind_nav {
+	margin-bottom: 20px;
+}

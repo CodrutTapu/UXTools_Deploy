@@ -9,10 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/router", "../user.service", "rxjs/Rx", "rxjs/add/operator/map"], function (require, exports, core_1, gridElem_1, router_1, user_service_1, Rx_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var ProjectComponent = (function () {
         function ProjectComponent(UserService, route) {
             this.UserService = UserService;
-            this.getData = [];
             this.gridElements = [];
             this.author_id = route.snapshot.params['author_id'];
             this.project_type = route.snapshot.params['project_type'];
@@ -42,17 +42,24 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/r
         ProjectComponent.prototype.httpGet = function () {
             var _this = this;
             this.UserService.getProject(this.author_id, this.project_id)
-                .subscribe(function (data) { return _this.getData = data; }, function (error) { return alert(Error); }, function () { return _this.gridElements = JSON.parse(_this.getData[0].content); });
+                .subscribe(function (data) { _this.gridElements = JSON.parse(data[0].content), _this.projectExpanded = data[0].expanded, localStorage.setItem('project_expanded', _this.projectExpanded); _this.expandProject(); }, function (error) { return alert(Error); });
         };
         ProjectComponent.prototype.saveProjectCall = function () {
             var dd = new Date().toISOString().slice(0, 10);
             var dt = new Date().toTimeString().slice(0, 8);
-            var ajaxurl = '/projects/saveProject', data = { 'author_id': this.author_id, 'project_name': this.project_name, 'project_id': this.project_id, 'project_content': JSON.stringify(this.gridElements), 'project_modified': dd + ' ' + dt };
+            var ajaxurl = '/projects/saveProject', data = { 'author_id': this.author_id, 'project_name': this.project_name, 'project_id': this.project_id, 'project_content': JSON.stringify(this.gridElements), 'project_modified': dd + ' ' + dt, 'project_expanded': localStorage.getItem('project_expanded') };
             $.post(ajaxurl, data, function (response) { });
         };
         ProjectComponent.prototype.saveProject = function () {
             this.saveProjectCall();
             toastr["success"](" ", "Project Saved!");
+        };
+        ProjectComponent.prototype.expandProject = function () {
+            if (this.projectExpanded == 1) {
+                var mainContainer = $('#mainContainer');
+                mainContainer.removeClass('container');
+                mainContainer.addClass('container-fluid');
+            }
         };
         return ProjectComponent;
     }());

@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 define(["require", "exports", "@angular/core", "@angular/platform-browser", "../cloneModule_service/cloneModule.service"], function (require, exports, core_1, platform_browser_1, cloneModule_service_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var EmbedModule = (function () {
         function EmbedModule(sanitizer, _cloneModuleService) {
             this.sanitizer = sanitizer;

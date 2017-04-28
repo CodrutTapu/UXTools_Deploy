@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 define(["require", "exports", "@angular/core", "@angular/router", "../user.service", "rxjs/Rx", "rxjs/add/operator/map"], function (require, exports, core_1, router_1, user_service_1, Rx_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var editMindMapComponent = (function () {
         function editMindMapComponent(UserService, route) {
             this.UserService = UserService;

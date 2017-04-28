@@ -1228,6 +1228,8 @@
 
             $content = $request->getParam('project_content');
 
+            $expanded = $request->getParam('project_expanded');
+
             $insertedId = $database->insert("projects", [
                 "author_id" => $author_id,
                 "project_type" => $project_type,
@@ -1236,7 +1238,8 @@
                 "date_modified" => $date,
                 "content" => $content,
                 "archived" => 0,
-                "template" => 0
+                "template" => 0,
+                "expanded" => $expanded
             ]);
 
             return $response->withJson($insertedId);
@@ -1302,10 +1305,13 @@
 
             $content = $request->getParam('project_content');
 
+            $expanded = $request->getParam('project_expanded');
+
             $database->update("projects", [
                 "content" => $content,
                 "project_name" => $project_name,
                 "date_modified" => $date_modified,
+                "expanded" => $expanded,
                 ], [
                     "AND" => [
                         "author_id" => $author_id,

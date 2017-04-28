@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 define(["require", "exports", "@angular/core"], function (require, exports, core_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var bgColorModule = (function () {
         function bgColorModule() {
             this.bgColors = ['#4c7ba0', '#ffffff', '#ee4039', '#f07171', '#124666', '#737373', '#f8b13d', '#00b5c8', '#81bda4', '#F8F8F8', '#b05574'];

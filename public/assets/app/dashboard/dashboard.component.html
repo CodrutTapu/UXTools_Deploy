@@ -19,8 +19,8 @@
                                             <li><a routerLink="new/persona">Use Persona Template</a></li>
                                             <li><a routerLink="new/swot_analysis">Use SWOT Analysis Template</a></li>
                                             <li class="divider"></li>
-                                            <li><a routerLink="new/mind-map">Mind Map</a></li>
-                                            <li class="divider"></li>
+                                            <!--<li><a routerLink="new/mind-map">Mind Map</a></li>
+                                            <li class="divider"></li>-->
                                             <li *ngFor="let project of projects"><a *ngIf="project.template == 1" routerLink="/new/template/{{ project.project_id }}/{{ project.project_name }}">{{ project.project_name }}</a></li>
                                         </ul>
                                     </li>
@@ -117,10 +117,6 @@
                                     <td *ngIf="project.archived == 1" >{{ project.date_created}}</td>
                                     <td *ngIf="project.archived == 1" >{{ project.date_modified }}</td>
                                 </tr>
-                            </tbody>
-
-                            <tbody *ngIf="viewTemplates == true">
-                                gfdjghdfkjhgkjdfh
                             </tbody>
                         </table>
                     </div>

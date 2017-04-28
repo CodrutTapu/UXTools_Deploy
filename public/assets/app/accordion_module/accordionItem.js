@@ -1,5 +1,6 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var accordionItem = (function () {
         function accordionItem(id, title, content) {
             this.id = id;

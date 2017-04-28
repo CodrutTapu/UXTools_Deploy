@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/router", "../user.service", "rxjs/Rx", "rxjs/add/operator/map"], function (require, exports, core_1, gridElem_1, router_1, user_service_1, Rx_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var newTemplateComponent = (function () {
         function newTemplateComponent(UserService, route) {
             this.UserService = UserService;
@@ -16,6 +17,7 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/r
             this.gridElements = [];
             this.first_save_flag = true;
             this.id = 3;
+            this.projectExpanded = 0;
             this.project_id = route.snapshot.params['project_id'];
             this.project_name = route.snapshot.params['project_name'];
         }
@@ -43,7 +45,7 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/r
         newTemplateComponent.prototype.httpGet = function () {
             var _this = this;
             this.UserService.getProject(this.user.id, this.project_id)
-                .subscribe(function (data) { return _this.getData = data; }, function (error) { return alert(Error); }, function () { return _this.gridElements = JSON.parse(_this.getData[0].content); });
+                .subscribe(function (data) { _this.getData = data, _this.projectExpanded = data[0].expanded, localStorage.setItem('project_expanded', _this.projectExpanded); _this.expandProject(); }, function (error) { return alert(Error); }, function () { return _this.gridElements = JSON.parse(_this.getData[0].content); });
         };
         newTemplateComponent.prototype.addGridElement = function (dim) {
             this.gridElements.push(new gridElem_1.gridElem(dim, this.id + 1, [], '#4c7ba0'));
@@ -52,7 +54,7 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/r
         newTemplateComponent.prototype.saveNewProjectCall = function () {
             var dd = new Date().toISOString().slice(0, 10);
             var dt = new Date().toTimeString().slice(0, 8);
-            var ajaxurl = '/projects/saveNewProject', data = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_content': JSON.stringify(this.gridElements), 'project_created': dd + ' ' + dt, 'project_type': 'custom_project' };
+            var ajaxurl = '/projects/saveNewProject', data = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_content': JSON.stringify(this.gridElements), 'project_created': dd + ' ' + dt, 'project_type': 'custom_project', 'project_expanded': localStorage.getItem('project_expanded') };
             $.post(ajaxurl, data, function (response) {
                 localStorage.setItem('insertId', response);
             });
@@ -60,7 +62,7 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/r
         newTemplateComponent.prototype.saveProjectCall = function () {
             var dd = new Date().toISOString().slice(0, 10);
             var dt = new Date().toTimeString().slice(0, 8);
-            var ajaxurl = '/projects/saveProject', data2 = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'project_content': JSON.stringify(this.gridElements), 'project_modified': dd + ' ' + dt };
+            var ajaxurl = '/projects/saveProject', data2 = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'project_content': JSON.stringify(this.gridElements), 'project_modified': dd + ' ' + dt, 'project_expanded': localStorage.getItem('project_expanded') };
             $.post(ajaxurl, data2, function (response) { });
         };
         newTemplateComponent.prototype.saveProject = function () {
@@ -72,6 +74,13 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "@angular/r
             else {
                 this.saveProjectCall();
                 toastr["success"](" ", "Project Saved!");
+            }
+        };
+        newTemplateComponent.prototype.expandProject = function () {
+            if (this.projectExpanded == 1) {
+                var mainContainer = $('#mainContainer');
+                mainContainer.removeClass('container');
+                mainContainer.addClass('container-fluid');
             }
         };
         return newTemplateComponent;

@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 define(["require", "exports", "@angular/core", "../text_module/textModule", "../image_module/imageModule", "../bar_graph_module/barGraphModule", "../bar_graph_module/barGraphBar", "../social_media_module/socialMediaModule", "../tag_module/tagModule", "../tag_module/tagModuleTag", "../email_module/emailModule", "../scale_chart_module/scaleChartModule", "../scale_chart_module/scaleChartModuleScale", "../pie_chart_module/pieChartModule", "../accordion_module/accordionModule", "../accordion_module/accordionItem", "../tabs_module/tabsModule", "../tabs_module/tabsItem", "../embed_module/embedModule", "../devicesPlatforms_module/devicesPlatformsModule", "../devicesPlatforms_module/devicePlatform", "../about_module/aboutModule", "../about_module/aboutItem", "../counting_module/countingModule", "rxjs/add/operator/map"], function (require, exports, core_1, textModule_1, imageModule_1, barGraphModule_1, barGraphBar_1, socialMediaModule_1, tagModule_1, tagModuleTag_1, emailModule_1, scaleChartModule_1, scaleChartModuleScale_1, pieChartModule_1, accordionModule_1, accordionItem_1, tabsModule_1, tabsItem_1, embedModule_1, devicesPlatformsModule_1, devicePlatform_1, aboutModule_1, aboutItem_1, countingModule_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var cloneModuleService = (function () {
         function cloneModuleService() {
         }
@@ -155,6 +156,9 @@ define(["require", "exports", "@angular/core", "../text_module/textModule", "../
                     break;
                 case 14:
                     gE.modules.push(new countingModule_1.countingModule(14, 'counting-module', [module.content[0], module.content[1]], module.bgColor));
+                    break;
+                case 15:
+                    gE.modules.push(new textModule_1.textModule(15, 'mind-map-module', 'mind map', module.bgColor));
                     break;
                 default:
                     console.log("Err");

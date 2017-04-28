@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 define(["require", "exports", "@angular/core"], function (require, exports, core_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var ViewTabsModule = (function () {
         function ViewTabsModule() {
         }

@@ -1,7 +1,12 @@
 body {
-    padding-top: 80px;
-    padding-bottom: 40px;
     position: relative;
+}
+.pt-80 {
+    padding-top: 80px;
+}
+
+.pb-40 {
+    padding-bottom: 40px;
 }
 /*
 ==================================
@@ -186,31 +191,31 @@ body {
 .module-buttons ul li:hover {
     background: #333;
 }
-.text-module:hover .module-buttons ul{
+.text-module:hover .module-buttons ul {
     display: block;
 }
-.text-module:hover .colours-list{
+.text-module:hover .colours-list {
     display: none;
 }
-.image-module:hover .module-buttons ul{
+.image-module:hover .module-buttons ul {
     display: block;
 }
-.bar-graph-module:hover .module-buttons ul{
+.bar-graph-module:hover .module-buttons ul {
     display: block;
 }
-.social-media-module:hover .module-buttons ul{
+.social-media-module:hover .module-buttons ul {
     display: block;
 }
-.tag-module:hover .module-buttons ul{
+.tag-module:hover .module-buttons ul {
     display: block;
 }
-.email-module:hover .module-buttons ul{
+.email-module:hover .module-buttons ul {
     display: block;
 }
-.scale-chart-module:hover .module-buttons ul{
+.scale-chart-module:hover .module-buttons ul {
     display: block;
 }
-.pie-chart-module:hover .module-buttons ul{
+.pie-chart-module:hover .module-buttons ul {
     display: block;
 }
 .accordion-module:hover .module-buttons ul {
@@ -230,6 +235,12 @@ body {
 }
 .counting-module:hover .module-buttons ul {
     display: block;
+}
+.mind-map-module:hover .module-buttons ul {
+    display: block;
+}
+.mind-map-module:hover .colours-list {
+    display: none;
 }
 /*
 ==================================

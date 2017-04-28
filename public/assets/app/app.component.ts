@@ -9,4 +9,27 @@ import { UserService } from './user.service';
     providers: [UserService],
 })
 
-export class AppComponent  {}
+export class AppComponent  {
+	currentUser:any;
+	currentUserFullName:string;
+
+	constructor(private UserService: UserService) {}
+
+	ngOnInit() {
+		this.getUser();		
+	}
+
+	currentUserSave() {
+		localStorage.setItem("currentUser", this.currentUser);
+	}
+
+	getUser() {
+        this.UserService.getCurrentUser()
+            .subscribe(
+                data => {this.currentUserFullName = data.full_name; this.currentUser = data; },
+                error => alert(Error),
+                	() => this.currentUserSave()
+            );
+    }
+
+}

@@ -1,5 +1,6 @@
 define(["require", "exports", "@angular/core/testing", "./signin.component"], function (require, exports, testing_1, signin_component_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     describe('SigninComponent', function () {
         var component;
         var fixture;

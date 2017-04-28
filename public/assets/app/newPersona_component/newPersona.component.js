@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 define(["require", "exports", "@angular/core", "../models/gridElem", "../text_module/textModule", "../user.service", "rxjs/Rx", "../image_module/imageModule", "../about_module/aboutModule", "../about_module/aboutItem", "../scale_chart_module/scaleChartModule", "../scale_chart_module/scaleChartModuleScale", "../tag_module/tagModule", "../tag_module/tagModuleTag", "../bar_graph_module/barGraphModule", "../bar_graph_module/barGraphBar", "../devicesPlatforms_module/devicesPlatformsModule", "../devicesPlatforms_module/devicePlatform", "rxjs/add/operator/map"], function (require, exports, core_1, gridElem_1, textModule_1, user_service_1, Rx_1, imageModule_1, aboutModule_1, aboutItem_1, scaleChartModule_1, scaleChartModuleScale_1, tagModule_1, tagModuleTag_1, barGraphModule_1, barGraphBar_1, devicesPlatformsModule_1, devicePlatform_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var newPersonaComponent = (function () {
         function newPersonaComponent(UserService) {
             this.UserService = UserService;
@@ -47,10 +48,12 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "../text_mo
             ];
             this.first_save_flag = true;
             this.id = 3;
+            this.projectExpanded = 0;
         }
         newPersonaComponent.prototype.ngOnInit = function () {
             var _this = this;
             this.getUser();
+            localStorage.setItem('project_expanded', this.projectExpanded);
             this.subscription = Rx_1.Observable.interval(30000).subscribe(function (x) {
                 if (_this.first_save_flag) {
                     _this.saveNewProjectCall();
@@ -76,7 +79,7 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "../text_mo
         newPersonaComponent.prototype.saveNewProjectCall = function () {
             var dd = new Date().toISOString().slice(0, 10);
             var dt = new Date().toTimeString().slice(0, 8);
-            var ajaxurl = '/projects/saveNewProject', data = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_content': JSON.stringify(this.gridElements), 'project_created': dd + ' ' + dt, 'project_type': 'persona' };
+            var ajaxurl = '/projects/saveNewProject', data = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_content': JSON.stringify(this.gridElements), 'project_created': dd + ' ' + dt, 'project_type': 'persona', 'project_expanded': localStorage.getItem('project_expanded') };
             $.post(ajaxurl, data, function (response) {
                 localStorage.setItem('insertId', response);
             });
@@ -84,7 +87,7 @@ define(["require", "exports", "@angular/core", "../models/gridElem", "../text_mo
         newPersonaComponent.prototype.saveProjectCall = function () {
             var dd = new Date().toISOString().slice(0, 10);
             var dt = new Date().toTimeString().slice(0, 8);
-            var ajaxurl = '/projects/saveProject', data2 = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'project_content': JSON.stringify(this.gridElements), 'project_modified': dd + ' ' + dt };
+            var ajaxurl = '/projects/saveProject', data2 = { 'author_id': this.user.id, 'project_name': this.project_name, 'project_id': localStorage.getItem('insertId'), 'project_content': JSON.stringify(this.gridElements), 'project_modified': dd + ' ' + dt, 'project_expanded': localStorage.getItem('project_expanded') };
             $.post(ajaxurl, data2, function (response) { });
         };
         newPersonaComponent.prototype.saveProject = function () {

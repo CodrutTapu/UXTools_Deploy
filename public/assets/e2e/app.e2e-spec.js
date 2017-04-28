@@ -1,5 +1,6 @@
 define(["require", "exports", "protractor"], function (require, exports, protractor_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     describe('QuickStart E2E Tests', function () {
         var expectedMsg = 'Hello Angular';
         beforeEach(function () {

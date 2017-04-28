@@ -1,5 +1,6 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var socialMediaModule = (function () {
         function socialMediaModule(id, name, facebookUrl, twitterUrl, linkedinUrl, externalUrl, bgColor) {
             this.id = id;

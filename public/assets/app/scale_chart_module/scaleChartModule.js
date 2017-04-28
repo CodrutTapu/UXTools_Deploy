@@ -1,5 +1,6 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var scaleChartModule = (function () {
         function scaleChartModule(id, name, title, scales, bgColor) {
             this.id = id;

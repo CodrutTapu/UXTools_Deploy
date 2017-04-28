@@ -1,0 +1,46 @@
+<div class="mind-map-module white-brd hover-brd" [style.background]="module.bgColor"><!-- Mind Map Module -->
+    <div class="module-buttons">
+        <ul class="no-pad">
+            <li (click)="deleteMindMapModule(gE,module)" class="delete" title="Delete Module"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></li>
+            <bgColor-module [module]="module"></bgColor-module>
+            <li (click)="cloneModule(gE,module)" title="Clone Module"><i class="fa fa-clone" aria-hidden="true"></i></li>
+            <li class="move"><i class="fa fa-arrows" aria-hidden="true"></i></li>
+        </ul>
+    </div>
+  
+        <div id="jsmind_nav">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" onclick="toggle_editable(this);">Disable Editable</button>
+                <button type="button" class="btn btn-primary" onclick="add_node();">Add a Node</button>
+                <button type="button" class="btn btn-primary" onclick="add_image_node();">Add a Image Node</button>
+                <button type="button" class="btn btn-primary" onclick="remove_node();">Remove Node</button>
+                <button type="button" class="btn btn-primary" onclick="zoomIn();" id="zoom-in-button">Zoom In</button>
+                <button type="button" class="btn btn-primary" onclick="zoomOut();" id="zoom-out-button">Zoom Out</button>
+                <select class="" id="theme" onchange="set_theme(this.value);">
+                    <option value="">Default</option>
+                    <option value="primary">Primary</option>
+                    <option value="warning">Warning</option>
+                    <option value="danger">Danger</option>
+                    <option value="success">Success</option>
+                    <option value="info">Info</option>
+                    <option value="greensea" selected="selected">Greensea</option>
+                    <option value="nephrite">Nephrite</option>
+                    <option value="belizehole">Belizehole</option>
+                    <option value="wisteria">Wisteria</option>
+                    <option value="asphalt">Asphalt</option>
+                    <option value="orange">Orange</option>
+                    <option value="pumpkin">Pumpkin</option>
+                    <option value="pomegranate">Pomegranate</option>
+                    <option value="clouds">Clouds</option>
+                    <option value="asbestos">Asbestos</option>
+                </select>
+            </div>
+        </div>
+   
+    
+        <div id="jsmind_container"></div>
+        <div style="display:none">
+            <input class="file" type="file" id="image-chooser" accept="image/*"/>
+        </div>
+    
+</div>

@@ -21,6 +21,8 @@ import { devicePlatform } from '../devicesPlatforms_module/devicePlatform';
 import { aboutModule } from '../about_module/aboutModule';
 import { aboutItem } from '../about_module/aboutItem';
 import { countingModule } from '../counting_module/countingModule';
+import { MindMapModule } from '../mindMap_module/mindMap.module';
+import { mindMapModule } from '../mindMap_module/mindMapModule';
 declare var toastr:any;
 
 @Injectable()
@@ -169,6 +171,9 @@ export class cloneModuleService {
                 break;
             case 14:
                 gE.modules.push(new countingModule(14,'counting-module',[module.content[0],module.content[1]],module.bgColor));
+                break;
+            case 15:
+                gE.modules.push(new textModule(15,'mind-map-module','mind map',module.bgColor));
                 break;
             default:
                 console.log("Err");

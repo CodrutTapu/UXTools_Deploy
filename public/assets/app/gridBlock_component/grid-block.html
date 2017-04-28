@@ -1,7 +1,9 @@
-<div class="container grid">
+<div class="container grid" id="mainContainer">
     <div class="grid-control-menu">
         <ul class="no-pad">
             <colorScheme-module [gridElements]="gridElements"></colorScheme-module>
+            <li *ngIf="projectExpanded == 0" (click)="toggleExpand()"><i class="fa fa-expand" aria-hidden="true"></i></li>
+            <li *ngIf="projectExpanded == 1" (click)="toggleExpand()"><i class="fa fa-compress" aria-hidden="true"></i></li>
         </ul>
     </div>
     <div class="row sortable" dnd-sortable-container [sortableData]="gridElements">
@@ -98,6 +100,10 @@
                                             <h3><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></h3>
                                             <p>Prefixed Counting</p>
                                         </div>
+                                        <div class="col-md-3 module-icon dropdown-toggle" (click)="addMindMapModule(gE)">
+                                            <h3><i class="fa fa-map-signs" aria-hidden="true"></i></h3>
+                                            <p>Mind Map</p>
+                                        </div>
                                     </div>
                                   </div>
                               <div class="modal-footer">
@@ -127,6 +133,7 @@
                             <devices-platforms-module *ngSwitchCase="12" [gE]="gE" [gridElements]="gridElements" [module]="module"></devices-platforms-module>
                             <about-module *ngSwitchCase="13" [gE]="gE" [gridElements]="gridElements" [module]="module"></about-module>
                             <counting-module *ngSwitchCase="14" [gE]="gE" [gridElements]="gridElements" [module]="module"></counting-module>
+                            <mind-map-module *ngSwitchCase="15" [gE]="gE" [gridElements]="gridElements" [module]="module"></mind-map-module>
                     </div>
                 </div>
             </div>
@@ -138,3 +145,5 @@
     </pre>-->
 
 </div>
+
+

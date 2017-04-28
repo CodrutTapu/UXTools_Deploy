@@ -16,9 +16,11 @@ declare var $:any;
 
 export class ViewProjectComponent {
     projectTitle:any;
+    currentUser:any;
 
-    getData:Array<any> = [];
+    getProject:Array<any> = [];
     gridElements:Array<gridElem> = [];
+    projectExpanded:any;
 
     author_id:number;
     project_type:string;
@@ -34,14 +36,23 @@ export class ViewProjectComponent {
 
     ngOnInit() {
         this.httpGet();
+        this.getUser();
     }
 
     httpGet() {
         this.UserService.getProject(this.author_id, this.project_id)
             .subscribe(
-                data => this.getData = data,
+                data => {this.getProject = data,this.projectExpanded = data[0].expanded},
                 error => alert(Error),
-                    () => this.gridElements = JSON.parse(this.getData[0].content)
+                    () => this.gridElements = JSON.parse(this.getProject[0].content)
+            );
+    }
+
+    getUser() {
+        this.UserService.getCurrentUser()
+            .subscribe(
+                data => this.currentUser = data,
+                error => alert(Error)
             );
     }
 }

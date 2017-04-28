@@ -31,9 +31,11 @@
     </script>
   </head>
 
-  <body>
-
-      {% include 'templates/partials/navigation.twig' %}
+  {% if auth.check %}
+  <body class="pt-80 pb-40">
+  {% else %}
+  <body class="pb-40">
+  {% endif %}
 
         <div class="container-fluid js">
             <ux-tools>

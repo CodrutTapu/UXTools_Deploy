@@ -1,5 +1,6 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var gridElem = (function () {
         function gridElem(dim, id, modules, csColor) {
             this.dim = dim;

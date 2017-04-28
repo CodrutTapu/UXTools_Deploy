@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 define(["require", "exports", "@angular/core", "@angular/http", "@angular/http", "rxjs/add/operator/map"], function (require, exports, core_1, http_1, http_2) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UserService = (function () {
         function UserService(http) {
             this.http = http;

@@ -1,5 +1,6 @@
 define(["require", "exports", "./app.component", "@angular/core/testing", "@angular/platform-browser"], function (require, exports, app_component_1, testing_1, platform_browser_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     describe('AppComponent', function () {
         var de;
         var comp;

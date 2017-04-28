@@ -89,7 +89,9 @@
             if (isset($_SESSION['currentUser']))
             {
                 $user =  $_SESSION['currentUser'];
-                echo json_encode($user);
+                return $response->withJSON($user);
+            } else {
+                return $response->withJSON(false);
             }
         }
     }
